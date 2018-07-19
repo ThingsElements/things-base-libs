@@ -68,6 +68,12 @@ Copyright © HatioLab Inc. All rights reserved.
 		<things-ajax id="add-user-ajax" resource-url="users" resource-action="create">
 		</things-ajax>
 
+		<things-ajax id="check-email-input-able" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{inputEmailAbleValue}}">
+		</things-ajax>
+
+		<things-ajax id="check-passwd-input-able" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{inputPasswdAbleValue}}">
+		</things-ajax>
+
 		<things-ajax id="check-use-validation" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{useValidation}}">
 		</things-ajax>
 
@@ -80,20 +86,20 @@ Copyright © HatioLab Inc. All rights reserved.
 				<things-input-field id="name-field" label="[[labelName]]" value="{{name}}" minlength="2" maxlength="10" placeholder="사용자 이름 : 2글자 이상 10글자 이하로 입력하세요"
 				    tab-index="2" required on-input="_execValidate">
 				</things-input-field>
+				<template is="dom-if" if="{{inputEmailAble}}">
+					<things-input-field id="email-field" label="[[labelEmail]]" value="{{email}}" validator="things-validator-email" maxlength="32"
+					    placeholder="사용자 이메일 : 30글자 이하로 입력하세요" tab-index="3" required on-input="_execValidate">
+					</things-input-field>
+				</template>
+				<template is="dom-if" if="{{inputPasswdAble}}">
+					<things-input-field id="passwd-field" label="[[labelPassword]]" type="password" value="{{password}}" minlength="2" maxlength="15"
+					    placeholder="[[passwordPatternLabel]]" tab-index="4" required on-input="_passwordValidate">
+					</things-input-field>
 
-				<things-input-field id="email-field" label="[[labelEmail]]" value="{{email}}" validator="things-validator-email" maxlength="32"
-				    placeholder="사용자 이메일 : 30글자 이하로 입력하세요" tab-index="3" required on-input="_execValidate" hidden=[[!inputEmailAble]]>
-				</things-input-field>
-
-				<things-input-field id="passwd-field" label="[[labelPassword]]" type="password" value="{{password}}" minlength="2" maxlength="15"
-				    placeholder="[[passwordPatternLabel]]" tab-index="4" required on-input="_passwordValidate" hidden=[[!inputpasswdAble]]>
-				</things-input-field>
-
-				<things-input-field required id="confirm-passwd-field" label="[[labelConfirmPassword]]" type="password" value="{{confirmedPassword}}"
-				    minlength="2" maxlength="15" placeholder="비밀번호 확인 : 위 비밀번호와 동일하게 입력하세요" tab-index="5" required on-input="_confirmPasswordValidate"
-				    hidden=[[!inputpasswdAble]]>
-				</things-input-field>
-
+					<things-input-field required id="confirm-passwd-field" label="[[labelConfirmPassword]]" type="password" value="{{confirmedPassword}}"
+					    minlength="2" maxlength="15" placeholder="비밀번호 확인 : 위 비밀번호와 동일하게 입력하세요" tab-index="5" required on-input="_confirmPasswordValidate">
+					</things-input-field>
+				</template>
 				<things-tristate-radio id="admin-flag" label="[[labelAdminFlag]]" value="{{adminFlag}}" tab-index="6">
 				</things-tristate-radio>
 
@@ -159,6 +165,26 @@ Copyright © HatioLab Inc. All rights reserved.
 					type: Boolean,
 					value: false,
 					computed: '_computeUsePwdValidation(useValidation)'
+				},
+				/**
+				 * 이메일 입력 가능여부
+				 * ********
+				 * @type: Boolean
+				 */
+				inputEmailAble: {
+					type: Boolean,
+					value: false,
+					computed: '_computeInputEmailAble(inputEmailAbleValue)'
+				},
+				/**
+				 * 패스워드 입력 가능여부
+				 * ********
+				 * @type: Boolean
+				 */
+				inputPasswdAble: {
+					type: Boolean,
+					value: false,
+					computed: '_computeInputPasswdAble(inputPasswdAbleValue)'
 				}
 			},
 
@@ -172,6 +198,8 @@ Copyright © HatioLab Inc. All rights reserved.
 			 */
 			ready: function () {
 				this.checkUseValidation();
+				this.checkEmailField();
+				this.checkPasswdField();
 			},
 
 			/**
@@ -354,6 +382,46 @@ Copyright © HatioLab Inc. All rights reserved.
 				this.confirmedPassword = null;
 				this.adminFlag = false;
 				this.activeFlag = false;
+			},
+			/**
+			 * things framework의 설정 값중 'user.register.email.field.enable'에 해당되는 value를 조회
+			 * 하는 ajax를 호출
+			 */
+			checkEmailField: function () {
+				var checkEmailFieldAjax = this.$['check-email-input-able'];
+				checkEmailFieldAjax.params = {
+					name: 'user.register.email.field.enable'
+				};
+				checkEmailFieldAjax.generateRequest();
+			},
+			/**
+			 * 이메일 필드 여부를 결정
+			 * things-framework의 'user.register.email.field.enable'에 의해 결정됨
+			 * true => email 필드 사용함
+			 * false => email 필드를 사용하지 않음
+			 */
+			_computeInputEmailAble(inputEmailAbleValue) {
+				return JSON.parse(inputEmailAbleValue.value);
+			},
+			/**
+			 * things framework의 설정 값중 'user.register.password.field.enable'에 해당되는 value를 조회
+			 * 하는 ajax를 호출
+			 */
+			checkPasswdField: function () {
+				var checkPasswdFieldAjax = this.$['check-passwd-input-able'];
+				checkPasswdFieldAjax.params = {
+					name: 'user.register.password.field.enable'
+				};
+				checkPasswdFieldAjax.generateRequest();
+			},
+			/**
+			 * 비밀번호 필드 여부를 결정
+			 * things-framework의 'user.register.password.field.enable'에 의해 결정됨
+			 * true => Password 필드 사용함
+			 * false => Password 필드를 사용하지 않음
+			 */
+			_computeInputPasswdAble(inputPasswdAbleValue) {
+				return JSON.parse(inputPasswdAbleValue.value);
 			}
 		})
 	</script>
