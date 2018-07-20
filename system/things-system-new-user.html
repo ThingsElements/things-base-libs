@@ -238,7 +238,7 @@ Copyright © HatioLab Inc. All rights reserved.
 						var emailAble = this.login;
 					}
 					//패스워드 입력 가능할 경우 암호화하여 전송, 아니면 null값으로 전송 
-					if (this.inputpasswdAble == true) {
+					if (this.inputPasswdAble == true) {
 						var passAble = this.sha256(this.password)
 					} else {
 						var passAble = null;
@@ -285,13 +285,13 @@ Copyright © HatioLab Inc. All rights reserved.
 					// this.$['confirm-passwd-field']
 				];
 				// 패스워드 입력가능할 경우에 유효성 체크
-				if (this.inputpasswdAble == true) {
-					formFields.push(this.$['passwd-field']);
-					formFields.push(this.$['confirm-passwd-field']);
+				if (this.inputPasswdAble == true) {
+					formFields.push(this.$$('#passwd-field'));
+					formFields.push(this.$$('#confirm-passwd-field'));
 				}
 				// 이메일 입력가능할 경우에 유효성 체크
 				if (this.inputEmailAble == true) {
-					formFields.push(this.$['email-field']);
+					formFields.push(this.$$('#email-field'));
 				}
 
 				var result = true;
@@ -323,7 +323,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			 * validation을 수행하고 결과값 (errorMessage)를 input field에 초기화함
 			 */
 			_passwordValidate: function () {
-				var pwField = this.$['passwd-field'];
+				var pwField = this.$$('#passwd-field');
 				var pw = pwField.value;
 				pwField.isValid = true;
 
@@ -346,13 +346,13 @@ Copyright © HatioLab Inc. All rights reserved.
 			 * validation을 수행하고 결과값 (errorMessage)를 input field에 초기화함
 			 */
 			_confirmPasswordValidate: function () {
-				var confirmPwField = this.$['confirm-passwd-field'];
+				var confirmPwField = this.$$('#confirm-passwd-field');
 				var confirmPw = confirmPwField.value;
 				confirmPwField.isValid = true;
 
 				try {
 					this.checkEmpty(confirmPw, 'label.confirmed_password');
-					this.checkNotEqual(this.$['passwd-field'].value, confirmPw);
+					this.checkNotEqual(this.$$('#passwd-field').value, confirmPw);
 				} catch (e) {
 					confirmPwField.isValid = false;
 					confirmPwField.errorMessage = e;
