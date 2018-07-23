@@ -384,19 +384,19 @@ Copyright © HatioLab Inc. All rights reserved.
 				this.activeFlag = false;
 			},
 			/**
-			 * things framework의 설정 값중 'user.register.email.field.enable'에 해당되는 value를 조회
+			 * things framework의 설정 값중 'user.add.email.field.enable'에 해당되는 value를 조회
 			 * 하는 ajax를 호출
 			 */
 			checkEmailField: function () {
 				var checkEmailFieldAjax = this.$['check-email-input-able'];
 				checkEmailFieldAjax.params = {
-					name: 'user.register.email.field.enable'
+					name: 'user.add.email.field.enable'
 				};
 				checkEmailFieldAjax.generateRequest();
 			},
 			/**
 			 * 이메일 필드 여부를 결정
-			 * things-framework의 'user.register.email.field.enable'에 의해 결정됨
+			 * things-framework의 'user.add.email.field.enable'에 의해 결정됨
 			 * true => email 필드 사용함
 			 * false => email 필드를 사용하지 않음
 			 */
@@ -404,19 +404,19 @@ Copyright © HatioLab Inc. All rights reserved.
 				return JSON.parse(inputEmailAbleValue.value);
 			},
 			/**
-			 * things framework의 설정 값중 'user.register.password.field.enable'에 해당되는 value를 조회
+			 * things framework의 설정 값중 'user.add.password.field.enable'에 해당되는 value를 조회
 			 * 하는 ajax를 호출
 			 */
 			checkPasswdField: function () {
 				var checkPasswdFieldAjax = this.$['check-passwd-input-able'];
 				checkPasswdFieldAjax.params = {
-					name: 'user.register.password.field.enable'
+					name: 'user.add.password.field.enable'
 				};
 				checkPasswdFieldAjax.generateRequest();
 			},
 			/**
 			 * 비밀번호 필드 여부를 결정
-			 * things-framework의 'user.register.password.field.enable'에 의해 결정됨
+			 * things-framework의 'user.add.password.field.enable'에 의해 결정됨
 			 * true => Password 필드 사용함
 			 * false => Password 필드를 사용하지 않음
 			 */
