@@ -64,33 +64,67 @@ Copyright © HatioLab Inc. All rights reserved.
 		<things-i18n-msg auto msgid="label.confirmed_password" msg="{{labelConfirmPassword}}" hidden></things-i18n-msg>
 		<things-i18n-msg auto msgid="label.admin_flag" msg="{{labelAdminFlag}}" hidden></things-i18n-msg>
 		<things-i18n-msg auto msgid="label.active" msg="{{labelActiveFlag}}" hidden></things-i18n-msg>
+    
+		<!-- 로그인 아이디 : 3글자 이상 20글자 이하로 입력하세요 -->
+		<things-i18n-msg auto msgid="text.login_placeholder" msg="{{placeholderLogin}}" hidden></things-i18n-msg>
+		<!-- 사용자 이름 : 2글자 이상 10글자 이하로 입력하세요 -->
+		<things-i18n-msg auto msgid="text.username_placeholder" msg="{{placeholderUsername}}" hidden></things-i18n-msg>
+		<!-- 사용자 이메일 : 30글자 이하로 입력하세요 -->
+		<things-i18n-msg auto msgid="text.email_placeholder" msg="{{placeholderEmail}}" hidden></things-i18n-msg>
+		<!-- 비밀번호 확인 : 위 비밀번호와 동일하게 입력하세요 -->
+		<things-i18n-msg auto msgid="text.pwd_confirm_placeholder" msg="{{placeholderPwdConfirm}}" hidden></things-i18n-msg>
 
-		<things-ajax id="add-user-ajax" resource-url="users" resource-action="create">
+		<things-ajax
+			id="add-user-ajax"
+			resource-url="users"
+			resource-action="create">
 		</things-ajax>
-
+          
 		<things-ajax id="check-email-input-able" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{inputEmailAbleValue}}">
 		</things-ajax>
 
 		<things-ajax id="check-passwd-input-able" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{inputPasswdAbleValue}}">
 		</things-ajax>
-
-		<things-ajax id="check-use-validation" resource-url="settings/show_by_name" resource-action="show_by_name" last-response="{{useValidation}}">
+          
+		<things-ajax
+			id="check-use-validation"
+			resource-url="settings/show_by_name"
+			resource-action="show_by_name"
+			last-response="{{useValidation}}">
 		</things-ajax>
 
 		<div class="container">
 			<div class="sub-container">
-				<things-input-field id="login-field" label="[[labelLogin]]" value="{{login}}" minlength="3" maxlength="20" placeholder="로그인 아이디 : 3글자 이상 20글자 이하로 입력하세요"
-				    tab-index="1" required on-input="_execValidate">
+				<things-input-field
+					id="login-field"
+					label="[[labelLogin]]"
+					value="{{login}}"
+					minlength="3"
+					maxlength="20"
+					placeholder="[[placeholderLogin]]"
+					tab-index="1"
+					required
+					on-input="_execValidate">
 				</things-input-field>
 
-				<things-input-field id="name-field" label="[[labelName]]" value="{{name}}" minlength="2" maxlength="10" placeholder="사용자 이름 : 2글자 이상 10글자 이하로 입력하세요"
-				    tab-index="2" required on-input="_execValidate">
+				<things-input-field
+					id="name-field"
+					label="[[labelName]]"
+					value="{{name}}"
+					minlength="2"
+					maxlength="10"
+					placeholder="[[placeholderUsername]]"
+					tab-index="2"
+					required
+					on-input="_execValidate">
 				</things-input-field>
-				<template is="dom-if" if="{{inputEmailAble}}">
+        
+        <template is="dom-if" if="{{inputEmailAble}}">
 					<things-input-field id="email-field" label="[[labelEmail]]" value="{{email}}" validator="things-validator-email" maxlength="32"
 					    placeholder="사용자 이메일 : 30글자 이하로 입력하세요" tab-index="3" required on-input="_execValidate">
 					</things-input-field>
 				</template>
+        
 				<template is="dom-if" if="{{inputPasswdAble}}">
 					<things-input-field id="passwd-field" label="[[labelPassword]]" type="password" value="{{password}}" minlength="2" maxlength="15"
 					    placeholder="[[passwordPatternLabel]]" tab-index="4" required on-input="_passwordValidate">
@@ -100,10 +134,19 @@ Copyright © HatioLab Inc. All rights reserved.
 					    minlength="2" maxlength="15" placeholder="비밀번호 확인 : 위 비밀번호와 동일하게 입력하세요" tab-index="5" required on-input="_confirmPasswordValidate">
 					</things-input-field>
 				</template>
-				<things-tristate-radio id="admin-flag" label="[[labelAdminFlag]]" value="{{adminFlag}}" tab-index="6">
+
+				<things-tristate-radio
+					id="admin-flag"
+					label="[[labelAdminFlag]]"
+					value="{{adminFlag}}"
+					tab-index="6">
 				</things-tristate-radio>
 
-				<things-tristate-radio id="active-flag" label="[[labelActiveFlag]]" value="{{activeFlag}}" tab-index="7">
+				<things-tristate-radio
+					id="active-flag"
+					label="[[labelActiveFlag]]"
+					value="{{activeFlag}}"
+					tab-index="7">
 				</things-tristate-radio>
 			</div>
 		</div>
@@ -134,11 +177,12 @@ Copyright © HatioLab Inc. All rights reserved.
 				 */
 				buttons: {
 					type: Array,
-					value: function () {
-						return [{
+					value: function() {
+						return [ {
 							id: 'save-btn',
 							text: 'save'
-						}];
+						} ];
+
 					}
 				},
 
@@ -225,7 +269,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			},
 
 			/**
-			 * 사용자 추가 
+			 * 사용자 추가
 			 *******
 			 */
 			addUser: function () {
@@ -264,16 +308,17 @@ Copyright © HatioLab Inc. All rights reserved.
 				}
 			},
 
-			/**
-			 * form submit 이전에 유효성 검사를 수행한다.
-			 * 유효성 검사 도중 문제 발생시 throw 문제가 없다면 true를 리턴
-			 * 
-			 * form element 아래의 모든 input 중 invalid가 true인 (validation 실패한) 필드가 있다면
-			 * false를 return
-			 * 
-			 * @return Boolean
-			 */
-			_formValidate: function () {
+
+      /**
+       * form submit 이전에 유효성 검사를 수행한다.
+       * 유효성 검사 도중 문제 발생시 throw 문제가 없다면 true를 리턴
+       *
+       * form element 아래의 모든 input 중 invalid가 true인 (validation 실패한) 필드가 있다면
+       * false를 return
+       *
+       * @return Boolean
+       */
+			_formValidate: function() {
 				var formFields = [
 					this.$['login-field'],
 					this.$['name-field'],
@@ -284,6 +329,7 @@ Copyright © HatioLab Inc. All rights reserved.
 					// this.$['passwd-field'],
 					// this.$['confirm-passwd-field']
 				];
+
 				// 패스워드 입력가능할 경우에 유효성 체크
 				if (this.inputPasswdAble == true) {
 					formFields.push(this.$$('#passwd-field'));
@@ -293,6 +339,7 @@ Copyright © HatioLab Inc. All rights reserved.
 				if (this.inputEmailAble == true) {
 					formFields.push(this.$$('#email-field'));
 				}
+
 
 				var result = true;
 
@@ -308,7 +355,7 @@ Copyright © HatioLab Inc. All rights reserved.
 
 			/**
 			 * on-input event handler
-			 * 
+			 *
 			 * 비밀번호가 아닌 필드들에 대한 공통 event handler
 			 * 값이 입력되면 validate를 호출하여 validationd을 수행함
 			 */
@@ -360,7 +407,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			},
 
 			/**
-			 * 사용자 추가 성공시 
+			 * 사용자 추가 성공시
 			 *******
 			 * @param {Object} event
 			 */
