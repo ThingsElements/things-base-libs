@@ -29,12 +29,10 @@ Copyright © HatioLab Inc. All rights reserved.
 				@apply(--layout-vertical);
 				@apply(--layout-flex);
 			}
-			.form {
-				@apply(--layout-flex-2);
-			}
 			.editor {
 				@apply(--layout-flex-3);
 			}
+
 			.subtitle:before {
 				content: "";
 				@apply(--things-subtitle-icon);
@@ -77,10 +75,13 @@ Copyright © HatioLab Inc. All rights reserved.
 				id="code-editor"
 				class="editor"
 				theme="ace/theme/monokai"
-				mode="ace/mode/groovy"
+				mode="ace/mode/sql"
+				softtabs
+				tabsize="2"
 				resource="{{resource}}"
 				code-field="logic">
 			</things-code-editor>
+
 		</div>
 	</template>
 

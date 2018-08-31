@@ -304,9 +304,10 @@ Copyright © HatioLab Inc. All rights reserved.
 			showInitDataResult: function(event) {
 				var result = event.detail;
 				var view = document.createElement('things-text-viewer');
-				view.title = 'Test Result';
-				view.content = result ? JSON.stringify(result, null, 4) : '';
-				var eventDetail = { view: view, modal: true, openCallback: null, closeCallback: null };
+				var eventDetail = { view: view, modal: true, openCallback: function() {
+					view.title = 'Test Result';
+					view.content = result ? JSON.stringify(result, null, 4) : '';
+				}, closeCallback: null };
 				var event = new CustomEvent('things-open-popup-view', { 'detail': eventDetail });
 				document.dispatchEvent(event);
 			},
