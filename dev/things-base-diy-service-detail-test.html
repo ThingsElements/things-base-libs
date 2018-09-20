@@ -31,15 +31,16 @@ Copyright © HatioLab Inc. All rights reserved.
 				height: 50px;
 				@apply(--things-tight-padding);
 			}
-			paper-toolbar::shadow #bottomBar {
+			/*  shadow dom 작업 이후 적용 안되어 주석 처리
+				paper-toolbar::shadow #bottomBar {
 				height: 50px;
 				@apply(--layout-horizontal);
 				@apply(--layout-end-justified);
 				padding: 0 10px;
-			}
+			} */
 		</style>
 
-		<paper-toolbar>
+		<paper-toolbar id = "bottomBarContain">
 			<div class="bottom">
 				<things-button-bar buttons="[[buttons]]"></things-button-bar>
 			</div>
@@ -223,7 +224,13 @@ Copyright © HatioLab Inc. All rights reserved.
 				} else {
 					this.$.result.value = 'Unknown Error';
 				}
-			}
+			},
+			attached: function() {
+				// paper-toolbar의 bottomBar내의 button 우측으로 옮기기
+				var findBarRoot = this.$.bottomBarContain;
+				var bottomBarRoot = findBarRoot.$.bottomBar;
+				bottomBarRoot.style['-webkit-justify-content'] = 'flex-end';
+     		}		
 		});
 	</script>
 </dom-module>
