@@ -18,21 +18,22 @@ Copyright © HatioLab Inc. All rights reserved.
 		<style>
 			:host {
 				display:block;
-				@apply(--layout-vertical);
+				@apply --layout-vertical;
+				@apply --layout-flex;
 			}
 
 			things-resource-grid {
-				@apply(--layout-flex);
+				@apply --layout-flex;
 			}
 
 			.subtitle:before {
 				content: '';
-				@apply(--things-subtitle-icon);
+				@apply --things-subtitle-icon;
 			}
 
 			.subtitle {
-				@apply(--things-default-padding);
-				@apply(--things-subtitle);
+				@apply --things-default-padding;
+				@apply --things-subtitle;
 				padding-left: 16px
 			}
 		</style>
