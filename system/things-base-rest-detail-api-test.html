@@ -345,7 +345,14 @@ Example:
 					this.resource = resource;
 					this.inputParams = resource.input_type_list;
 				}
-			}
+			},
+			
+			attached: function() {
+				// paper-toolbar의 bottomBar내의 button 우측으로 옮기기
+				var findBarRoot = this.$$('paper-toolbar');
+				var bottomBarRoot = findBarRoot.$.bottomBar;
+				bottomBarRoot.style['-webkit-justify-content'] = 'flex-end';
+     		}	
 		});
 	</script>
 </dom-module>
