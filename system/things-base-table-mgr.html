@@ -115,29 +115,31 @@ Copyright © HatioLab Inc. All rights reserved.
 				sections="[[sections]]">
 
 				<!-- 첫번째 탭의 entity 정보 폼 -->
-				<div tab-content-1 class="container">
+				<!-- <div tab-content-1 class="container"> -->
 					<things-form
 						id="resource-form"
+						tab-content-1 class="container"
 						form-fields="[[resourceFormFields]]"
 						fixed-column-count="2"
 						buttons="[[formButtons]]">
 					</things-form>
-				</div>
+				<!-- </div> -->
 
 				<!-- 두번째 탭의 table 설정 화면 -->
-				<div tab-content-2 class="container">
+				<!-- <div tab-content-2 class="container"> -->
 					<things-base-table-mgr-table
 						resource="[[resource]]"
+						tab-content-2 class="container"
 						diff-columns="[[diffColumns]]">
 					</things-base-table-mgr-table>
-				</div>
+				<!-- </div> -->
 
 				<!-- 세번째 탭의 index 설정 화면 -->
-				<div tab-content-3 class="container">
-					<things-base-table-mgr-index
+				<!-- <div tab-content-3 class="container"> -->
+					<things-base-table-mgr-index tab-content-3 class="container"
 						resource="[[resource]]">
 					</things-base-table-mgr-index>
-				</div>
+				<!-- </div> -->
 			</things-layout-hades>
 		</things-layout-hera>
 	</template>
@@ -228,7 +230,8 @@ Copyright © HatioLab Inc. All rights reserved.
 				'entity-info-ajax.things-ajax-response': 'entityResponsed',
 				'entity-save-ajax.things-ajax-response': 'saveResponsed',
 				'save-btn-tap': 'saveBtnTapped',
-				'sync-btn-tap': 'synchAll'
+				'sync-btn-tap': 'synchAll',
+				'things-layout-tab-changed' : 'tabChangeRest'
 			},
 
 			/**
@@ -319,7 +322,19 @@ Copyright © HatioLab Inc. All rights reserved.
 				var syncAjax = this.$['entity-sync-ajax'];
 				syncAjax.body = entityList;
 				syncAjax.generateRequest();
+			},
+
+			tabChangeRest: function(e){
+				var tabName = e.detail;
+				if(tabName == 'table' && this.$$('things-base-table-mgr-table') && this.$$('things-base-table-mgr-table').$$('things-resource-grid').grid && this.$$('things-base-table-mgr-table').$$('things-resource-grid').grid.resetGrid){
+					var findTable = this.$$('things-base-table-mgr-table');
+					findTable.$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'index' && this.$$('things-base-table-mgr-index') && this.$$('things-base-table-mgr-index').$$('things-resource-grid').grid && this.$$('things-base-table-mgr-index').$$('things-resource-grid').grid.resetGrid){
+					var findIndex = this.$$('things-base-table-mgr-index');
+					findIndex.$$('things-resource-grid').grid.resetGrid();
+				}
 			}
+			
 		})
 	</script>
 </dom-module>
