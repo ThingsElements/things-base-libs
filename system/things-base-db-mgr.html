@@ -86,35 +86,39 @@ Copyright © HatioLab Inc. All rights reserved.
 				sections="[[sections]]">
 
 				<!-- 첫번째 탭의 테이블 컬럼 정보 -->
-				<div tab-content-1 class="container">
+				<!-- <div tab-content-1 class="container"> -->
 					<things-base-db-mgr-column
 						resource="[[resource]]"
-						table-columns="{{tableColumns}}">
+						table-columns="{{tableColumns}}"
+						tab-content-1 class="container">
 					</things-base-db-mgr-column>
-				</div>
+				<!-- </div> -->
 
 				<!-- 두번째 탭의 테이블 인덱스 설정 화면 -->
-				<div tab-content-2 class="container">
+				<!-- <div tab-content-2 class="container"> -->	
 					<things-base-db-mgr-index
-						resource="[[resource]]">
+						resource="[[resource]]"
+						tab-content-2 class="container">
 					</things-base-db-mgr-index>
-				</div>
+				<!-- </div> -->
 
 				<!-- 세번째 탭의 테이블 데이터 설정 화면 -->
-				<div tab-content-3 class="container">
+				<!-- <div tab-content-3 class="container"> -->
 					<things-base-db-mgr-data
 						resource="[[resource]]"
-						table-columns="[[tableColumns]]">
+						table-columns="[[tableColumns]]"
+						tab-content-3 class="container">
 					</things-base-db-mgr-data>
-				</div>
+				<!-- </div> -->
 
 				<!-- 네번째 탭의 쿼리 작성기 화면 -->
-				<div tab-content-4 class="container">
+				<!-- <div tab-content-4 class="container"> -->
 					<things-base-db-mgr-sql
 						resource="[[resource]]"
-						table-columns="[[tableColumns]]">
+						table-columns="[[tableColumns]]"
+						tab-content-4 class="container">
 					</things-base-db-mgr-sql>
-				</div>
+				<!-- </div> -->
 			</things-layout-hades>
 		</things-layout-hera>
 	</template>
@@ -195,6 +199,22 @@ Copyright © HatioLab Inc. All rights reserved.
 				 */
 				tableColumns: {
 					type: Array
+				}
+			},
+			listeners: {
+				'things-layout-tab-changed' : 'tabChangeDbm'
+			},
+			tabChangeDbm : function(e){
+				var tabName = e.detail;
+				if(tabName == 'table' && this.$$('things-base-db-mgr-column') && this.$$('things-base-db-mgr-column').$$('things-resource-grid').grid && this.$$('things-base-db-mgr-column').$$('things-resource-grid').grid.resetGrid){
+					var findTable = this.$$('things-base-db-mgr-column');
+					findTable.$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'index' && this.$$('things-base-db-mgr-index') && this.$$('things-base-db-mgr-index').$$('things-resource-grid').grid && this.$$('things-base-db-mgr-index').$$('things-resource-grid').grid.resetGrid){
+					var findIndex = this.$$('things-base-db-mgr-index');
+					findIndex.$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'data' && this.$$('things-base-db-mgr-data') && this.$$('things-base-db-mgr-data').$$('things-resource-grid').grid && this.$$('things-base-db-mgr-data').$$('things-resource-grid').grid.resetGrid){
+					var findData = this.$$('things-base-db-mgr-data');
+					findData.$$('things-resource-grid').grid.resetGrid();
 				}
 			}
 		})
