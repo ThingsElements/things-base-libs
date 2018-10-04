@@ -21,71 +21,72 @@ Copyright © HatioLab Inc. All rights reserved.
     <style>
       :host {
         display: inline-block;
-        @apply(--things-base-menu-detail);
-        @apply(--layout-horizontal);
+        @apply --things-base-menu-detail;
+        @apply --layout-horizontal;
+        @apply --layout-flex;
       }
 
       paper-card {
-        @apply(--layout-vertical);
-        @apply(--layout-flex);
-        @apply(--layout-wrap);
-        @apply(--things-base-menu-detail-container);
+        @apply --layout-vertical;
+        @apply --layout-flex;
+        @apply --layout-wrap;
+        @apply --things-base-menu-detail-container;
         --paper-card-header-text: {
           font-size: 14px;
-          @apply(--things-detail-header-text);
+          @apply --things-detail-header-text;
         };
       }
 
       .container {
-        @apply(--things-base-menu-detail);
-        @apply(--layout-flex);
-        @apply(--layout-horizontal);
+        @apply --things-base-menu-detail;
+        @apply --layout-flex;
+        @apply --layout-horizontal;
       }
 
       .detail-flex {
-        @apply(--layout-flex);
+        @apply --layout-flex;
       }
 
       .layout-content {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
+        @apply --layout-flex;
+        @apply --layout-vertical;
       }
 
       .card-actions {
-        @apply(--layout-horizontal-reverse);
+        @apply --layout-horizontal-reverse;
       }
 
       #left {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
-        @apply(--things-base-menu-detail-left);
+        @apply --layout-flex;
+        @apply --layout-vertical;
+        @apply --things-base-menu-detail-left;
       }
 
       #left-top {
-        @apply(--layout-flex-4);
-        @apply(--things-base-menu-detail-right-top);
+        @apply --layout-flex-4;
+        @apply --things-base-menu-detail-right-top;
       }
 
       #left-bottom {
-        @apply(--layout-flex-3);
-        @apply(--things-base-menu-detail-right-bottom);
+        @apply --layout-flex-3;
+        @apply --things-base-menu-detail-right-bottom;
       }
 
       #right {
-        @apply(--layout-flex);
-        @apply(--layout-vertical);
-        @apply(--things-base-menu-detail-right);
+        @apply --layout-flex;
+        @apply --layout-vertical;
+        @apply --things-base-menu-detail-right;
       }      
 
       .subtitle:before {
         content: '';
-        @apply(--things-subtitle-icon);
+        @apply --things-subtitle-icon;
       }
 
       .subtitle {
-        @apply(--things-default-padding);
+        @apply --things-default-padding;
         padding-bottom:7px;
-        @apply(--things-subtitle);
+        @apply --things-subtitle;
       }      
     </style>
 
