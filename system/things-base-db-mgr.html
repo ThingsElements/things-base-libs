@@ -40,6 +40,23 @@ Copyright © HatioLab Inc. All rights reserved.
 				@apply(--layout-vertical);
 				@apply(--layout-flex);
 			}
+
+			things-resource-grid{
+				padding-top: 0px;
+			}
+			
+			things-layout-hera{
+				--things-default-padding :{
+					padding : 15px 15px 4px 16px;
+				}
+			}
+			things-layout-hades{
+				--things-hades-tabs-style :{
+        		width:calc(100% - 15px);
+        		height:35px;
+        		color:var(--things-sidebar-text-color);
+				}
+			}
 		</style>
 
 		<things-ajax
@@ -215,6 +232,9 @@ Copyright © HatioLab Inc. All rights reserved.
 				}else if(tabName == 'data' && this.$$('things-base-db-mgr-data') && this.$$('things-base-db-mgr-data').$$('things-resource-grid').grid && this.$$('things-base-db-mgr-data').$$('things-resource-grid').grid.resetGrid){
 					var findData = this.$$('things-base-db-mgr-data');
 					findData.$$('things-resource-grid').grid.resetGrid();
+				}else if(tabName == 'sql' && this.$$('things-base-db-mgr-sql') && this.$$('things-base-db-mgr-sql').$$('things-base-random-query-grid') && this.$$('things-base-db-mgr-sql').$$('things-base-random-query-grid').$$('things-resource-grid') && this.$$('things-base-db-mgr-sql').$$('things-base-random-query-grid').$$('things-resource-grid').grid && this.$$('things-base-db-mgr-sql').$$('things-base-random-query-grid').$$('things-resource-grid').grid.resetGrid){
+					var findSql = this.$$('things-base-db-mgr-sql');
+					findSql.$$('things-base-random-query-grid').$$('things-resource-grid').grid.resetGrid();
 				}
 			}
 		})
