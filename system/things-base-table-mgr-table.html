@@ -18,35 +18,38 @@ Copyright © HatioLab Inc. All rights reserved.
 		<style>
 			:host {
 				display: block;
-				@apply(--layout-vertical);
-				@apply(--layout-flex);
+				@apply --layout-vertical;
+				@apply --layout-flex;
 			}
 			things-resource-grid {
-				@apply(--layout-flex);
+				@apply --layout-flex;
+				padding-top:0 !important;
+				padding-left: 0;
 			}
 			paper-toolbar {
 				background-color:var(--things-primary-background-color);
 				height:45px;
 				margin-top:0px !important;
-				@apply(--things-padding-clear)
+				@apply --things-padding-clear;
 			}
 			paper-toolbar::shadow #topBar {
 				height:45px;
-				@apply(--things-padding-clear)
+				@apply --things-padding-clear;
 			}
 			paper-toolbar .title {
 				margin-left:32px !important;
 				line-height:initial !important;
 			}
 			.close-btn {
-				@apply(--things-header-button);
+				@apply --things-header-button;
 				background:url(/images/icon-close.png) 100% 50% no-repeat;
 				margin-right:10px;
 			}
 			.bottom {
-				@apply(--layout-horizontal);
-				@apply(--layout-end-justified);
+				@apply --layout-horizontal;
+				@apply --layout-end-justified;
 			}
+
 		</style>
 
 		<!-- 테이블 생성용 ajax -->
