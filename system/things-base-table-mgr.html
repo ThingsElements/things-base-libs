@@ -31,13 +31,26 @@ Copyright © HatioLab Inc. All rights reserved.
 			things-layout-hades {
 				@apply(--layout-flex);
 			}
-			things-resource-grid {
-				@apply(--layout-flex);
-			}
 			.container {
 				@apply(--layout-vertical);
 				@apply(--layout-flex);
 			}
+			things-resource-grid{
+				padding-top: 0px;
+			}
+			things-layout-hera{
+				--things-default-padding :{
+					padding : 15px 15px 4px 16px;
+				}
+			}
+			things-layout-hades{
+				--things-hades-tabs-style :{
+        		width:calc(100% - 15px);
+        		height:35px;
+        		color:var(--things-sidebar-text-color);
+				}
+			}
+
 		</style>
 
 		<things-ajax
