@@ -183,7 +183,19 @@ Copyright © HatioLab Inc. All rights reserved.
         var model = { config: {}, model: gridModel, columns: gridColumns };
         this.resource.config = JSONfn.stringify(model, null, 2);
         console.log(this.resource.config);
-      }
+      },
+
+      /**
+			* Tab 선택이 변경된 경우 
+			*
+			* @param {Object} event
+			*/
+			 _onPageSelected: function(event) {
+				var detailItemView = event.detail.item;
+        if(detailItemView.$$('things-menu-grid-section') && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid') && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid.resetSize ){
+          detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid.resetSize();
+        }
+			}
     });
   </script>
 </dom-module>
