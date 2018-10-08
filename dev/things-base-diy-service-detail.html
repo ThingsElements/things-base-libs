@@ -28,24 +28,24 @@ Copyright © HatioLab Inc. All rights reserved.
 				display: block;
 				height: 100%;
 				width: 100%;
-				@apply(--layout-vertical);
+				@apply --layout-vertical;
 				--paper-header-panel-container: {
 					height: 100%;
 					width: 100%;
-					@apply(--layout-vertical);
+					@apply --layout-vertical;
 				};
 			}
 			paper-header-panel {
-				@apply(--layout-flex);
-				@apply(--layout-vertical);
+				@apply --layout-flex;
+				@apply --layout-vertical;
 			}
 			
 			iron-pages {
-				@apply(--layout-flex);
-				@apply(--layout-vertical);
+				@apply --layout-flex;
+				@apply --layout-vertical;
 			}
 			.detail-flex {
-				@apply(--layout-flex);
+				@apply --layout-flex;
 			}
 		</style>
 
@@ -153,6 +153,18 @@ Copyright © HatioLab Inc. All rights reserved.
 					title: Things.DataGlobal.t('title.test'),
 					elementId: 'things-base-diy-service-detail-test'
 				} ];
+			},
+
+			/**
+			* Tab 선택이 변경된 경우 
+			*
+			* @param {Object} event
+			*/
+			 _onPageSelected: function(event) {
+				var detailItemView = event.detail.item;
+				if(detailItemView.$$('things-resource-grid') && detailItemView.$$('things-resource-grid').grid && detailItemView.$$('things-resource-grid').grid.resetSize){
+					detailItemView.$$('things-resource-grid').grid.resetSize();
+				}
 			}
 		});
 	</script>
