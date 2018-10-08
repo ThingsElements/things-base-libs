@@ -20,7 +20,7 @@ Copyright © HatioLab Inc. All rights reserved.
     <style>
       :host {
         display: block;
-        background-color:var(--things-whitegrey-background-color);
+        /* background-color:var(--things-whitegrey-background-color); */
       }
       paper-toolbar {
         background-color:var(--things-primary-background-color);
@@ -67,10 +67,10 @@ Copyright © HatioLab Inc. All rights reserved.
         background:url(/images/icon-close.png) 100% 50% no-repeat;
         margin-right:10px;
       }
-      .container {
+      /* .container {
         height: 90vh;
         overflow: auto;
-      }
+      } */
       #card-list::shadow paper-card {
         padding:6px 4px;
         min-height:85px
@@ -245,11 +245,11 @@ Copyright © HatioLab Inc. All rights reserved.
       </div>
     </paper-dialog>
 
-    <paper-toolbar id="button-toolbar">
+    <!-- <paper-toolbar id="button-toolbar">
       <div class="bottom">
         <things-button-bar id="button-bar" buttons="[[buttons]]"></things-button-bar>
       </div>
-    </paper-toolbar>
+    </paper-toolbar> -->
 
     <iron-scroll-threshold
       id="scroller"
