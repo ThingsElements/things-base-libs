@@ -23,45 +23,46 @@ Copyright © HatioLab Inc. All rights reserved.
 		<style>
 			:host {
 				display: block;
-				@apply(--layout-vertical)
-				@apply(--layout-flex)
+				@apply --layout-vertical;
+				@apply --layout-flex;
 			}
 
 			.subtitle:before {
 				content: '';
-				@apply(--things-subtitle-icon);
+				@apply --things-subtitle-icon;
 			}
 
 			.subtitle {
-				@apply(--things-default-padding);
+				@apply --things-default-padding;
 				padding-bottom: 7px;
-				@apply(--things-subtitle);
+				@apply --things-subtitle;
+				color: var(--things-primary-text-color);
 			}
 
 			things-resource-grid {
-				@apply(--things-default-padding);
+				@apply --things-default-padding;
 				padding-top:0px;
 				padding-bottom:0px;
 			}
 
 			.rest-main {
-				@apply(--layout-flex);
+				@apply --layout-flex;
 				min-height: 300px;
 			}
 			
 			.rest-api {
-				@apply(--layout-horizontal);
-				@apply(--layout-flex);
+				@apply --layout-horizontal;
+				@apply --layout-flex;
 			}
 
 			.api-list {
-				@apply(--layout-vertial);
-				@apply(--layout-flex);
+				@apply --layout-vertial;
+				@apply --layout-flex;
 			}
 
 			.api-params {
-				@apply(--layout-vertial);
-				@apply(--layout-flex);
+				@apply --layout-vertial;
+				@apply --layout-flex;
 			}
 		</style>
 
