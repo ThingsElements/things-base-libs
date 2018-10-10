@@ -154,9 +154,11 @@ Copyright © HatioLab Inc. All rights reserved.
 			 * @param {Object} event
 			 */
 			_onPageSelected: function(event) {
-				if(!this.apiDetail) return;
-
 				var detailItemView = event.detail.item;
+				if(detailItemView.$$('things-basic-grid') && detailItemView.$$('things-basic-grid').grid && detailItemView.$$('things-basic-grid').grid.resetSize){
+					detailItemView.$$('things-basic-grid').grid.resetSize();
+				}
+				if(!this.apiDetail) return;
 				detailItemView.loadDetailData(this.apiDetail);
 				this.fire(detailItemView.id + '-selected', detailItemView);
 			},
