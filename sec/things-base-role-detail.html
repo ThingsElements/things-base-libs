@@ -119,8 +119,22 @@ Copyright © HatioLab Inc. All rights reserved.
           title: Things.DataGlobal.t('title.user'),
           elementId: 'users-tab'
         } ];
-      }      
+      },
 
+     	/**
+			* Tab 선택이 변경된 경우 
+			*
+			* @param {Object} event
+			*/
+			 _onPageSelected: function(event) {
+				var detailItemView = event.detail.item;
+				if(Polymer.dom(detailItemView.root).querySelectorAll('things-resource-grid')){
+          var detailList = Polymer.dom(detailItemView.root).querySelectorAll('things-resource-grid');
+          for(var i = 0; i < detailList.length; i ++){
+            detailList[i].grid.resetSize();
+          }
+			  }      
+      }
     });
   </script>
 </dom-module>
