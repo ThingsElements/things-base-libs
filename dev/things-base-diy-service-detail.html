@@ -136,6 +136,10 @@ Copyright © HatioLab Inc. All rights reserved.
 				}
 			},
 
+			listeners: {
+        		'tabPages.iron-select':'tabGridReset'
+      		},
+
 			ready: function() {
 				this._panels = [ {
 					title: Things.DataGlobal.t('title.basic_info'),
@@ -160,10 +164,12 @@ Copyright © HatioLab Inc. All rights reserved.
 			*
 			* @param {Object} event
 			*/
-			 _onPageSelected: function(event) {
+			tabGridReset: function(event) {
 				var detailItemView = event.detail.item;
-				if(detailItemView.$$('things-resource-grid') && detailItemView.$$('things-resource-grid').grid && detailItemView.$$('things-resource-grid').grid.resetSize){
-					detailItemView.$$('things-resource-grid').grid.resetSize();
+        		var viewGrid = detailItemView.$$('things-resource-grid') && detailItemView.$$('things-resource-grid').grid;
+
+				if(viewGrid && viewGrid.resetSize){
+				  viewGrid.resetSize();
 				}
 			}
 		});
