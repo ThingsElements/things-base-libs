@@ -169,7 +169,16 @@ Copyright © HatioLab Inc. All rights reserved.
           title: Things.DataGlobal.t('title.setup_param'),
           elementId: 'things-base-menu-setup-params'
         } ];
-      }
+      },
+      attached: function() {
+
+          var findPanel = this.$$('paper-header-panel');
+          var findMainContainer = findPanel.$.mainContainer;
+          var styleElement = document.createElement("style");
+          styleElement.appendChild(document.createTextNode("::-webkit-scrollbar {width:5px;} ::-webkit-scrollbar-track {background-color:transparent;}"));
+          styleElement.appendChild(document.createTextNode("::-webkit-scrollbar-thumb {background-color:rgba(0,0,0,.2);} ::-webkit-scrollbar-thumb:hover {background-color:#49a8df;}"));
+          findMainContainer.appendChild(styleElement);	
+      },
 
     });
   </script>
