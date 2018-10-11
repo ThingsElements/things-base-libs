@@ -146,7 +146,8 @@ Copyright © HatioLab Inc. All rights reserved.
       },
 
       listeners: {
-        'create-model-btn-tap' : '_createColumnModel'
+        'create-model-btn-tap' : '_createColumnModel',
+        'tabPages.iron-select':'tabGridReset'
       },
 
       ready: function() {
@@ -190,7 +191,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			*
 			* @param {Object} event
 			*/
-			 _onPageSelected: function(event) {
+      tabGridReset: function(event) {
 				var detailItemView = event.detail.item;
         if(detailItemView.$$('things-menu-grid-section') && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid') && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid && detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid.resetSize ){
           detailItemView.$$('things-menu-grid-section').$$('things-resource-grid').grid.resetSize();
