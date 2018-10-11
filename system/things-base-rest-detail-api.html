@@ -120,7 +120,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			},
 
 			listeners: {
-				'tabPages.iron-select': '_onPageSelected'
+				'tabPages.iron-select': 'tabGridReset'
 			},
 
 			/**
@@ -153,10 +153,12 @@ Copyright © HatioLab Inc. All rights reserved.
 			 *
 			 * @param {Object} event
 			 */
-			_onPageSelected: function(event) {
+			 tabGridReset: function(event) {
 				var detailItemView = event.detail.item;
-				if(detailItemView.$$('things-basic-grid') && detailItemView.$$('things-basic-grid').grid && detailItemView.$$('things-basic-grid').grid.resetSize){
-					detailItemView.$$('things-basic-grid').grid.resetSize();
+				var viewGrid = detailItemView.$$('things-basic-grid') && detailItemView.$$('things-basic-grid').grid;
+
+				if(viewGrid && viewGrid.resetSize){
+					viewGrid.resetSize();
 				}
 				if(!this.apiDetail) return;
 				detailItemView.loadDetailData(this.apiDetail);
