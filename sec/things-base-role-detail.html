@@ -105,6 +105,10 @@ Copyright © HatioLab Inc. All rights reserved.
         }
       },
 
+      listeners: {
+        'tabPages.iron-select':'tabGridReset'
+      },
+      
       ready: function() {
         this._panels = [ {
           title: Things.DataGlobal.t('title.basic_info'),
@@ -121,19 +125,19 @@ Copyright © HatioLab Inc. All rights reserved.
         } ];
       },
 
-     	/**
-			* Tab 선택이 변경된 경우 
-			*
-			* @param {Object} event
-			*/
-			 _onPageSelected: function(event) {
+     	// /**
+			// * Tab 선택이 변경된 경우 
+			// *
+			// * @param {Object} event
+			// */
+      tabGridReset: function(event) {
 				var detailItemView = event.detail.item;
-				if(Polymer.dom(detailItemView.root).querySelectorAll('things-resource-grid')){
-          var detailList = Polymer.dom(detailItemView.root).querySelectorAll('things-resource-grid');
+        var detailList = Polymer.dom(detailItemView.root).querySelectorAll('things-resource-grid');
+				if(detailList){
           for(var i = 0; i < detailList.length; i ++){
             detailList[i].grid.resetSize();
           }
-			  }      
+			  }
       }
     });
   </script>
