@@ -30,18 +30,18 @@ Example:
 		<style>
 			:host {
 				display: block;
-				@apply(--layout-vertical);
-				@apply(--things-table-padding);
+				@apply --layout-vertical;
+				@apply --things-table-padding;
 			}
 			paper-toolbar {
 				background-color:var(--things-white-background-color);
 				height: 50px;
-				@apply(--things-tight-padding);
+				@apply --things-tight-padding;
 			}
 			paper-toolbar::shadow #bottomBar {
 				height: 50px;
-				@apply(--layout-horizontal);
-				@apply(--layout-end-justified);
+				@apply --layout-horizontal;
+				@apply --layout-end-justified;
 				padding: 0 10px;
 			}
 			.restInvoke {
@@ -74,7 +74,7 @@ Example:
 			<things-input-field required id="invoke-url" name="invokeUrl" label="Invoke URL" value="{{invokeUrl}}">
 			</things-input-field>
 
-			<div id="param-fields" class="layout vertical flex fields"></div>
+			<div id="param-fields"></div>
 
 			<things-textarea id="result" label="Result" rows="4"></things-textarea>
 		</form>
