@@ -17,7 +17,6 @@ Copyright © HatioLab Inc. All rights reserved.
 
 <link rel="import" href="./things-base-role-detail-auth.html">
 <link rel="import" href="./things-base-role-detail-user.html">
-<link rel="import" href="./things-base-role-code-auth.html">
 
 <!--
   Role Detail View
@@ -70,9 +69,6 @@ Copyright © HatioLab Inc. All rights reserved.
       <things-base-role-detail-auth id="menu-authorization">
       </things-base-role-detail-auth>
 
-      <things-base-role-code-auth id="common-code-authorization">
-      </things-base-role-code-auth>
-
       <things-base-role-detail-user id="users">
       </things-base-role-detail-user>
     </iron-pages>
@@ -107,16 +103,13 @@ Copyright © HatioLab Inc. All rights reserved.
       ready: function() {
         this._panels = [ {
           title: Things.DataGlobal.t('title.basic_info'),
-          elementId: 'things-resource-form-tab'
+          elementId: 'things-resource-form'
         }, {
           title: Things.DataGlobal.t('title.menu_auth'),
-          elementId: 'menu-authorization-tab'
-        },{
-          title: Things.DataGlobal.t('title.common_code_auth'),
-          elementId: 'common-code-authorization-tab'
+          elementId: 'things-resource-grid'
         }, {
           title: Things.DataGlobal.t('title.user'),
-          elementId: 'users-tab'
+          elementId: 'things-resource-grid'
         } ];
       }      
 
