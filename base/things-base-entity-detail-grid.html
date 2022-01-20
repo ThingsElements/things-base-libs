@@ -111,15 +111,20 @@ Copyright © HatioLab Inc. All rights reserved.
         gridColumns: {
           type: Array,
           value: function() {
-            var colTypes = ['', 'binary', 'boolean', 'date', 'datetime', 'decimal', 'double', 'float', 'integer', 'long', 'string', 'text', 'time', 'timestamp'];
             var editors = ['', 'hidden', 'readonly', 'text', 'number', 'checkbox', 'code-combo', 'code-column', 'textarea', 'date-picker', 'resource-column', 'resource-selector', 'resource-format-selector', 'resource-code', 'image-selector', 'file-selector', 'image-renderer', 'datetime-picker', 'ranged-date-picker', 'date', 'time', 'datetime', 'positive-number', 'negative-number', 'rank', 'password', 'popup-editor'];
 
-            return [ {
-              fieldName: 'id', name: 'id', width: 0
+            return [{
+              fieldName: 'id',
+              name: 'id',
+              width: 0
             }, {
-              fieldName: 'entity_id', name: 'entity_id', width: 0
+              fieldName: 'entity_id',
+              name: 'entity_id',
+              width: 0
             }, {
-              fieldName: 'grid_rank', name: 'grid_rank', width: 50,
+              fieldName: 'grid_rank',
+              name: 'grid_rank',
+              width: 50,
               header: {
                 text: Things.DataGlobal.t('label.rank')
               },
@@ -127,13 +132,19 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'name', name: 'name', width: 135,
+              fieldName: 'name',
+              name: 'name',
+              width: 135,
               header: {
                 text: Things.DataGlobal.t('label.name')
               }
             }, {
-              fieldName: 'term', name: 'term', width: 135, editable: false,
-              valueType: 'text', type: 'calced',
+              fieldName: 'term',
+              name: 'term',
+              width: 135,
+              editable: false,
+              valueType: 'text',
+              type: 'calced',
               header: {
                 text: Things.DataGlobal.t('label.term')
               },
@@ -142,22 +153,34 @@ Copyright © HatioLab Inc. All rights reserved.
                 return term ? Things.DataGlobal.t(term) : '';
               }
             }, {
-              name: 'col_type', fieldName: 'col_type', width: 80, editable: false,
+              name: 'col_type',
+              fieldName: 'col_type',
+              width: 80,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.col_type')
               }
             }, {
-              fieldName: 'ref_type', name: 'ref_type', width: 100, editable: false,
+              fieldName: 'ref_type',
+              name: 'ref_type',
+              width: 100,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_type')
               }
             }, {
-              fieldName: 'ref_name', name: 'ref_name', width: 150, editable: false,
+              fieldName: 'ref_name',
+              name: 'ref_name',
+              width: 150,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_name')
-             }
+              }
             }, {
-              name: 'grid_align', fieldName: 'grid_align', width: 65, lookupDisplay: true,
+              name: 'grid_align',
+              fieldName: 'grid_align',
+              width: 65,
+              lookupDisplay: true,
               header: {
                 text: Things.DataGlobal.t('label.align')
               },
@@ -165,10 +188,13 @@ Copyright © HatioLab Inc. All rights reserved.
                 type: 'list',
                 domainOnly: true
               },
-              lookupValues: [ '', 'center', 'far' ],
-              lookupLabels: [ '', 'Center', 'Far' ]
+              lookupValues: ['', 'center', 'far'],
+              lookupLabels: ['', 'Center', 'Right']
             }, {
-              fieldName: 'grid_width', name: 'grid_width', width: 65, type: 'number',
+              fieldName: 'grid_width',
+              name: 'grid_width',
+              width: 65,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.width')
               },
@@ -176,7 +202,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              name: 'grid_editor', fieldName: 'grid_editor', width: 150, lookupDisplay: true,
+              name: 'grid_editor',
+              fieldName: 'grid_editor',
+              width: 150,
+              lookupDisplay: true,
               header: {
                 text: Things.DataGlobal.t('label.editor')
               },
@@ -184,22 +213,30 @@ Copyright © HatioLab Inc. All rights reserved.
                 type: 'list',
                 domainOnly: true
               },
-              lookupValues: editors,
-              lookupLabels: editors
+              userData: {
+                resourceType: 'code',
+                resourceName: 'GRID_COLUMN_EDITOR'
+              }
+              //lookupValues: editors,
+              //lookupLabels: editors
             }, {
-              fieldName: 'grid_format', name: 'grid_format', width: 135,
+              fieldName: 'grid_format',
+              name: 'grid_format',
+              width: 135,
               header: {
                 text: Things.DataGlobal.t('label.format')
               }
             }, {
-              fieldName: 'def_val', name: 'def_val', width: 100,
+              fieldName: 'def_val',
+              name: 'def_val',
+              width: 100,
               header: {
                 text: Things.DataGlobal.t('label.def_val')
               },
               editor: {
                 maxLength: 128
               }
-            } ];
+            }];
           }
         },
 
@@ -208,20 +245,20 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         buttons: {
           type: Array,
-          value: [ {
+          value: [{
             id: 'save-btn',
             text: 'save'
           }, {
             id: 'delete-btn',
             text: 'delete'
-          } ]
+          }]
         }
       },
 
       listeners: {
-        'things-detail-view-selected' : '_myTabSelected',
-        'grid.things-grid-handle-built-writedata' : '_setupWriteData',
-        'grid.things-grid-save-success' : '_responseTransaction'
+        'things-detail-view-selected': '_myTabSelected',
+        'grid.things-grid-handle-built-writedata': '_setupWriteData',
+        'grid.things-grid-save-success': '_responseTransaction'
       },
 
       /**
@@ -260,9 +297,11 @@ Copyright © HatioLab Inc. All rights reserved.
       _resourceColumnsChanged: function(resourceColumns) {
         var items = null;
 
-        if(resourceColumns && resourceColumns.length > 0) {
-          items = resourceColumns.filter(function(column) { return column.grid_rank && column.grid_rank > 0; });
-          if(items && items.length > 0) this._sortColumns(items, 'grid_rank');
+        if (resourceColumns && resourceColumns.length > 0) {
+          items = resourceColumns.filter(function(column) {
+            return column.grid_rank && column.grid_rank > 0;
+          });
+          if (items && items.length > 0) this._sortColumns(items, 'grid_rank');
         }
 
         this.items = items ? items : [];
@@ -287,15 +326,15 @@ Copyright © HatioLab Inc. All rights reserved.
        */
       _setupWriteData: function(event) {
         var writeData = event.detail;
-        if(writeData && writeData.length > 0) {
+        if (writeData && writeData.length > 0) {
           var entityId = this.resourceId;
 
           writeData.forEach(function(changedData) {
             changedData.entity_id = entityId;
-            if(!changedData.uniq_rank) changedData.uniq_rank = 0;
+            if (!changedData.uniq_rank) changedData.uniq_rank = 0;
 
 
-            if(!changedData.grid_rank || 0 == changedData.grid_rank || '0' === changedData.grid_rank) {
+            if (!changedData.grid_rank || 0 == changedData.grid_rank || '0' === changedData.grid_rank) {
               changedData.grid_check = false;
             }
 

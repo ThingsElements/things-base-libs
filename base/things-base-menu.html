@@ -21,13 +21,13 @@ Copyright © HatioLab Inc. All rights reserved.
 <link rel="import" href="./things-base-menu-detail.html">
 
 <!--
-메뉴 관리 화면 셋.
+메뉴 관리 화면
 두 개의 그리드로 구성되는데 하나는 메인 메뉴 표시용이고
 다른 하나는 메인 메뉴를 선택했을 때 서브 메뉴 리스트를 표시하는데 사용된다.
 -->
 
 <dom-module id="things-base-menu">
-	<template>
+  <template>
 		<style>
 			:host {
 				display: block;
@@ -62,6 +62,7 @@ Copyright © HatioLab Inc. All rights reserved.
 			}
 		</style>
 
+    <!-- 메뉴 메타 정보 조회 Ajax -->
 		<things-ajax
 			auto
 			id="resource-meta"
@@ -70,6 +71,15 @@ Copyright © HatioLab Inc. All rights reserved.
 			last-response="{{metaData}}">
 		</things-ajax>
 
+    <!-- 서브 메뉴 정보 조회 Ajax -->
+		<things-ajax
+			id="search-submenus"
+			resource-url="menus/:id/sub_menus?showall=true"
+			resource-action="index"
+			last-response="{{subMenus}}">
+		</things-ajax>
+
+    <!-- 검색 폼 -->
 		<things-search-form
 			id="search-form"
 			title="[[menuInfo.title]]"
@@ -83,10 +93,12 @@ Copyright © HatioLab Inc. All rights reserved.
 			last-response="{{mainMenus}}">
 		</things-search-form>
 
+    <!-- 상단 그리드 타이틀 -->
 		<span class="subtitle">
 			<things-i18n-msg msgid="title.main_menu"></things-i18n-msg>
 		</span>
 
+    <!-- 상단 그리드 -->
 		<things-resource-grid
 			id="grid"
 			class="things-resource-grid-main"
@@ -104,17 +116,12 @@ Copyright © HatioLab Inc. All rights reserved.
 			enable-detail-column>
 		</things-resource-grid>
 
-		<things-ajax
-			id="search-submenus"
-			resource-url="menus/:id/sub_menus?showall=true"
-			resource-action="index"
-			last-response="{{subMenus}}">
-		</things-ajax>
-
+    <!-- 하단 그리드 타이틀 -->
 		<span class="subtitle">
 			<things-i18n-msg msgid="title.sub_menu"></things-i18n-msg>
 		</span>
 
+    <!-- 하단 그리드 -->
 		<things-resource-grid
 			id="sub-grid"
 			class="things-resource-grid-sub"
@@ -130,467 +137,503 @@ Copyright © HatioLab Inc. All rights reserved.
 		</things-resource-grid>
 	</template>
 
-	<script>
-		Polymer({
-			is: 'things-base-menu',
+  <script>
+    Polymer({
+      is: 'things-base-menu',
 
-			behaviors: [
-				Things.MsgBoxBehavior,
-				Things.MenuMetaBehavior
-			],
+      behaviors: [
+        Things.MsgBoxBehavior,
+        Things.MenuMetaBehavior
+      ],
 
-			properties: {
-				/**
-				 * 서버에서 관리하는 메뉴 정보
-				 */
-				menuInfo: {
-					type: Object,
-					observer: '_menuInfoChanged'
-				},
+      properties: {
+        /**
+         * @description 서버에서 관리하는 메뉴 정보
+         ********************
+         * @type {Object}
+         */
+        menuInfo: {
+          type: Object,
+          observer: '_menuInfoChanged'
+        },
 
-				/**
-				 * 그리드 저장 (Multiple Save) URL
-				 */
-				gridSaveUrl: {
-					type: String,
-					computed: '_computeGridSaveUrl(resourceUrl)'
-				},
+        /**
+         * @description 그리드 저장 (Multiple Save) URL
+         ********************
+         * @type {String}
+         */
+        gridSaveUrl: {
+          type: String,
+          computed: '_computeGridSaveUrl(resourceUrl)'
+        },
 
-				/**
-				 * 그리드에서 선택된 Row Data
-				 */
-				selectedRow: {
-					type: Object
-				},
+        /**
+         * @description 그리드에서 선택된 Row Data
+         ********************
+         * @type {Object}
+         */
+        selectedRow: {
+          type: Object
+        },
 
-				/**
-				 * Main grid buttons
-				 */
-				mainButtons: {
-					type: Array,
-					value: [ {
-						id: 'add-btn',
-						text: 'add',
-					}, {
-						id: 'delete-btn',
-						text: 'delete'
-					}, {
-						id: 'save-btn',
-						text: 'save'
-					}, {
-						id: 'clear-cache-btn',
-						text: 'clear-cache'
-					} ]
-				},
+        /**
+         * @description Main grid buttons
+         ********************
+         * @type {Array}
+         */
+        mainButtons: {
+          type: Array,
+          value: [{
+            id: 'add-btn',
+            text: 'add',
+          }, {
+            id: 'delete-btn',
+            text: 'delete'
+          }, {
+            id: 'save-btn',
+            text: 'save'
+          }, {
+            id: 'clear-cache-btn',
+            text: 'clear-cache'
+          }]
+        },
 
-				/**
-				 * grid config
-				 */
-				gridConfig: {
-					type: Object,
-					value: function() {
-						return {
-							displayOptions : {
-								fitStyle : DataLudi.GridFitStyle.EVEN_FILL
-							}
-						}
-					}
-				},
+        /**
+         * @description grid config
+         ********************
+         * @type {Object}
+         */
+        gridConfig: {
+          type: Object,
+          value: function() {
+            return {
+              displayOptions: {
+                fitStyle: DataLudi.GridFitStyle.EVEN_FILL
+              }
+            }
+          }
+        },
 
-				/**
-				 * sub grid config
-				 */
-				subGridConfig: {
-					type: Object,
-					value: function() {
-						return {
-							checkBar: {
-								exclusive : true
-							}
-						}
-					}
-				},
+        /**
+         * @description sub grid config
+         ********************
+         * @type {Object}
+         */
+        subGridConfig: {
+          type: Object,
+          value: function() {
+            return {
+              checkBar: {
+                exclusive: true
+              }
+            }
+          }
+        },
 
-				/**
-				 * 메인 메뉴 그리드 모델
-				 */
-				menuGridModel: {
-					type: Array
-				},
+        /**
+         * @description 메인 메뉴 그리드 모델
+         ********************
+         * @type {Array}
+         */
+        menuGridModel: {
+          type: Array
+        },
 
-				/**
-				 * 서브 메뉴 그리드 모델
-				 */
-				subMenuGridColumns: {
-					type: Array
-				},
+        /**
+         * @description 서브 메뉴 그리드 모델
+         ********************
+         * @type {Array}
+         */
+        subMenuGridColumns: {
+          type: Array
+        },
 
-				/**
-				 * mainGridColumn
-				 */
-				mainGridColumns: {
-					type: Array,
-					value: function() {
-						return [ {
-							name: 'id',
-							fieldName: 'id',
-							width: 0
-						}, {
-							name: 'rank',
-							fieldName: 'rank',
-							width: 65,
-							nullable: false,
-							header: {
-								text: Things.DataGlobal.t('label.rank')
-							},
-							styles: {
-								textAlignment: 'center',
-								numberFormat: '#,##0'
-							},
-							editor : {
-								type: 'number'
-							}
-						}, {
-							name: 'title',
-							fieldName: 'title',
-							width: 200,
-							editable: false,
-							header: {
-								text: Things.DataGlobal.t('label.title')
-							}
-						}, {
-							name: 'name',
-							fieldName: 'name',
-							nullable: false,
-							width: 175,
-							header: {
-								text: Things.DataGlobal.t('label.name')
-							},
-							editor: {
-								maxLength : 64
-							}
-						}, {
-							name: 'menu_type',
-							fieldName: 'menu_type',
-							nullable: false,
-							width: 110,
-							lookupDisplay: true,
-							header: {
-								text: Things.DataGlobal.t('label.menu_type')
-							},
-							editor: {
-								type: 'list',
-								domainOnly: true
-							},
-							lookupValues: ['', 'MENU','SCREEN','SEPARATOR','TEMPLATE'],
-							lookupLabels: ['', 'Menu','Screen','SEPARATOR','Template']
-						}, {
-							name: 'category',
-							fieldName: 'category',
-							width: 110,
-							nullable: false,
-							lookupDisplay: true,
-							header: {
-								text: Things.DataGlobal.t('label.category')
-							},
-							editor: {
-								type: 'list',
-								domainOnly: true
-							},
-							lookupValues: ['', 'STANDARD','TERMINAL'],
-							lookupLabels: ['', 'STANDARD','TERMINAL']
-						}, {
-							name: 'hidden_flag',
-							fieldName: 'hidden_flag',
-							width: 90,
-							editable: false,
-							header: {
-								text: Things.DataGlobal.t('label.hidden_flag')
-							},
-							renderer: {
-								type: 'check',
-								editable: true,
-								threeStates: false,
-								trueValues: 'true',
-								falseValues: 'false'
-							}
-						} ];
-					}
-				}
-			},
+        /**
+         * @description mainGridColumn
+         ********************
+         * @type {Array}
+         */
+        mainGridColumns: {
+          type: Array,
+          value: function() {
+            return [{
+              name: 'id',
+              fieldName: 'id',
+              width: 0
+            }, {
+              name: 'rank',
+              fieldName: 'rank',
+              width: 65,
+              nullable: false,
+              header: {
+                text: Things.DataGlobal.t('label.rank')
+              },
+              styles: {
+                textAlignment: 'center',
+                numberFormat: '#,##0'
+              },
+              editor: {
+                type: 'number'
+              }
+            }, {
+              name: 'title',
+              fieldName: 'title',
+              width: 200,
+              editable: false,
+              header: {
+                text: Things.DataGlobal.t('label.title')
+              }
+            }, {
+              name: 'name',
+              fieldName: 'name',
+              nullable: false,
+              width: 175,
+              header: {
+                text: Things.DataGlobal.t('label.name')
+              },
+              editor: {
+                maxLength: 64
+              }
+            }, {
+              name: 'menu_type',
+              fieldName: 'menu_type',
+              nullable: false,
+              width: 110,
+              lookupDisplay: true,
+              header: {
+                text: Things.DataGlobal.t('label.menu_type')
+              },
+              editor: {
+                type: 'list',
+                domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'MENU_TYPE'
+              }
+              //lookupValues: ['', 'MENU', 'SCREEN', 'SEPARATOR', 'TEMPLATE'],
+              //lookupLabels: ['', 'Menu', 'Screen', 'SEPARATOR', 'Template']
+            }, {
+              name: 'category',
+              fieldName: 'category',
+              width: 110,
+              nullable: false,
+              lookupDisplay: true,
+              header: {
+                text: Things.DataGlobal.t('label.category')
+              },
+              editor: {
+                type: 'list',
+                domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'MENU_CATEGORY'
+              }
+              //lookupValues: ['', 'STANDARD','TERMINAL'],
+              //lookupLabels: ['', 'STANDARD','TERMINAL']
+            }, {
+              name: 'hidden_flag',
+              fieldName: 'hidden_flag',
+              width: 90,
+              editable: false,
+              header: {
+                text: Things.DataGlobal.t('label.hidden_flag')
+              },
+              renderer: {
+                type: 'check',
+                editable: true,
+                threeStates: false,
+                trueValues: 'true',
+                falseValues: 'false'
+              }
+            }];
+          }
+        }
+      },
 
-			listeners : {
-				'grid.things-grid-detail-tap': '_showSubMenus',
-				'grid.things-grid-save-success': '_reloadMainMenus',
-				'grid.things-grid-configured' : '_reloadMainMenus',
-				'grid.things-grid-handle-addrow' : '_addMainMenu',
-				'sub-grid.things-grid-detail-tap': '_showSetupMenu',
-				'sub-grid.things-grid-save-success': '_reloadSubMenus',
-				'sub-grid.things-grid-handle-save' : '_beforeSubMenuSave',
-				'sub-grid.things-grid-handle-addrow' : '_addSubMenu',
-				'sub-grid.things-grid-handle-export': '_exportExcel',
-				'detail-btn-tap' : '_showSetupDetail',
-				'detail-layout-btn-tap':'_showSetupDetailLayout'
-			},
+      listeners: {
+        'grid.things-grid-detail-tap': '_showSubMenus',
+        'grid.things-grid-row-data-select': '_showSubMenus',
+        'grid.things-grid-save-success': '_reloadMainMenus',
+        'grid.things-grid-configured': '_reloadMainMenus',
+        'grid.things-grid-handle-addrow': '_addMainMenu',
+        'sub-grid.things-grid-detail-tap': '_showSetupMenu',
+        'sub-grid.things-grid-save-success': '_reloadSubMenus',
+        'sub-grid.things-grid-handle-save': '_beforeSubMenuSave',
+        'sub-grid.things-grid-handle-addrow': '_addSubMenu',
+        'sub-grid.things-grid-handle-export': '_exportExcel',
+        'detail-btn-tap': '_showSetupDetail',
+        'detail-layout-btn-tap': '_showSetupDetailLayout'
+      },
 
-			observers: [
-				'_gridModelChanged(gridModel)',
-				'_gridColumnsChanged(gridColumns)'
-			],
+      observers: [
+        '_gridModelChanged(gridModel)',
+        '_gridColumnsChanged(gridColumns)'
+      ],
 
-			/**
-			 * 메뉴 정보 변경시 모든 설정을 처리한다.
-			 *
-			 * @param {Object} menuInfo 메뉴 정보
-			 */
-			_menuInfoChanged: function(menuInfo) {
-				if(menuInfo) {
-					this.menuId = menuInfo.id;
-					this.resourceType = menuInfo.resource_name;
-					this.resourceUrl = menuInfo.resource_url;
-					this.dataRoute = menuInfo.routing;
-					this.detailView = menuInfo.detail_form_id;
-				}
-			},
+      /**
+       * @description 메뉴 정보 변경시 모든 설정을 처리한다.
+       *************************
+       * @param {Object} menuInfo 메뉴 정보
+       */
+      _menuInfoChanged: function(menuInfo) {
+        if (menuInfo) {
+          this.menuId = menuInfo.id;
+          this.resourceType = menuInfo.resource_name;
+          this.resourceUrl = menuInfo.resource_url;
+          this.dataRoute = menuInfo.routing;
+          this.detailView = menuInfo.detail_form_id;
+        }
+      },
 
-			/**
-			 * 그리드 모델 변경시
-			 *
-			 * @param {Object} gridModel
-			 */
-			_gridModelChanged: function(gridModel) {
-				if(gridModel && gridModel.length > 0) {
-					gridModel.push({ fieldName: 'title' });
-				}
+      /**
+       * @description 그리드 모델 변경시
+       *************************
+       * @param {Object} gridModel
+       */
+      _gridModelChanged: function(gridModel) {
+        if (gridModel && gridModel.length > 0) {
+          gridModel.push({
+            fieldName: 'title'
+          });
+        }
 
-				this.menuGridModel = gridModel;
-			},
+        this.menuGridModel = gridModel;
+      },
 
-			/**
-			 * 그리드 컬럼 변경시
-			 *
-			 * @param {Object} gridColumns
-			 */
-			_gridColumnsChanged: function(gridColumns) {
-				if(gridColumns && gridColumns.length > 0) {
-					gridColumns.splice(2, 0, {
-						name: 'title',
-						fieldName: 'title',
-						editable: false,
-						width: 175,
-						header: {
-							text: Things.DataGlobal.t('label.title')
-						}
-					});
-				}
+      /**
+       * @description 그리드 컬럼 변경시
+       *************************
+       * @param {Object} gridColumns
+       */
+      _gridColumnsChanged: function(gridColumns) {
+        if (gridColumns && gridColumns.length > 0) {
+          gridColumns.splice(2, 0, {
+            name: 'title',
+            fieldName: 'title',
+            editable: false,
+            width: 175,
+            header: {
+              text: Things.DataGlobal.t('label.title')
+            }
+          });
+        }
 
-				this.subMenuGridColumns = gridColumns;
-			},
+        this.subMenuGridColumns = gridColumns;
+      },
 
-			/**
-			 * resourceUrl로 grid save url을 생성
-			 *
-			 * @param {String} resourceUrl
-			 * @return {String} grid save URL
-			 */
-			_computeGridSaveUrl: function(resourceUrl) {
-				return resourceUrl + '/update_multiple.json';
-			},
+      /**
+       * @description resourceUrl로 grid save url을 생성
+       *************************
+       * @param {String} resourceUrl
+       * @return {String} grid save URL
+       */
+      _computeGridSaveUrl: function(resourceUrl) {
+        return resourceUrl + '/update_multiple.json';
+      },
 
-			/**
-			 * 메뉴 셋업 페이지를 오픈
-			 *
-			 * @param {Object} e 서브 메뉴 그리드 Detail Button 클릭 이벤트
-			 */
-			_showSetupMenu: function(e) {
-				var menu = e.detail;
-				var viewElement = document.createElement(this.menuInfo.detail_form_id);
-				viewElement.id = 'detail-view';
-				viewElement.title = menu.name;
-				viewElement.resourceType = 'Menu';
-				viewElement.resourceUrl = 'menus/:id';
-				viewElement.resource = menu;
-				viewElement.resourceId = menu.id;
-				viewElement.formFields = this.resourceFormFields;
-				viewElement.showDetailView(menu.id, menu);
+      /**
+       * @description 메뉴 셋업 페이지를 오픈
+       *************************
+       * @param {Object} e 서브 메뉴 그리드 Detail Button 클릭 이벤트
+       */
+      _showSetupMenu: function(e) {
+        var menu = e.detail;
+        var viewElement = document.createElement(this.menuInfo.detail_form_id);
+        viewElement.id = 'detail-view';
+        viewElement.title = menu.name;
+        viewElement.resourceType = 'Menu';
+        viewElement.resourceUrl = 'menus/:id';
+        viewElement.resource = menu;
+        viewElement.resourceId = menu.id;
+        viewElement.formFields = this.resourceFormFields;
+        viewElement.showDetailView(menu.id, menu);
 
-				viewElement.addEventListener('things-resource-form-saved', function(e) {
-					viewElement.closePopupView();
-					this._reloadSubMenus();
-				}.bind(this));
-			},
+        viewElement.addEventListener('things-resource-form-saved', function(e) {
+          viewElement.closePopupView();
+          this._reloadSubMenus();
+        }.bind(this));
+      },
 
-			/**
-			 * 메뉴 상세 셋업 페이지를 오픈
-			 *
-			 * @param {Object} e Detail 버튼 클릭 이벤트
-			 */
-			_showSetupDetail: function(e) {
-				var subgrid = this.$['sub-grid'].getGridObject();
-				var rows = subgrid.getCheckedRows();
-				if(!rows || rows.length == 0) return;
+      /**
+       * @description 메뉴 상세 셋업 페이지를 오픈
+       *************************
+       * @param {Object} e Detail 버튼 클릭 이벤트
+       */
+      _showSetupDetail: function(e) {
+        var subgrid = this.$['sub-grid'].getGridObject();
+        var rows = subgrid.getCheckedRows();
+        if (!rows || rows.length == 0) return;
 
-				var ds = this.$['sub-grid'].getGridDataSet();
-				var menu = ds.getRowObject(rows[0]._index);
+        var ds = this.$['sub-grid'].getGridDataSet();
+        var menu = ds.getRowObject(rows[0]._index);
 
-				var viewElement = document.createElement('things-base-menu-detail');
-				viewElement.id = 'detail-view';
-				viewElement.title = menu.name;
-				viewElement.resourceId = menu.id;
-				viewElement.resource = menu;
-				viewElement.showDetailView(menu.id, menu);
-			},
+        var viewElement = document.createElement('things-base-menu-detail');
+        viewElement.id = 'detail-view';
+        viewElement.title = menu.name;
+        viewElement.resourceId = menu.id;
+        viewElement.resource = menu;
+        viewElement.showDetailView(menu.id, menu);
+      },
 
-			/**
-			 * 메뉴 상세 셋업 페이지를 오픈
-			 *
-			 * @param {Object} e Detail 버튼 클릭 이벤트
-			 */
-			_showSetupDetailLayout: function(e) {
-				var subgrid = this.$['sub-grid'].getGridObject();
-				var rows = subgrid.getCheckedRows();
-				if(!rows || rows.length == 0) return;
+      /**
+       * @description 메뉴 상세 셋업 페이지를 오픈
+       *************************
+       * @param {Object} e Detail 버튼 클릭 이벤트
+       */
+      _showSetupDetailLayout: function(e) {
+        var subgrid = this.$['sub-grid'].getGridObject();
+        var rows = subgrid.getCheckedRows();
+        if (!rows || rows.length == 0) return;
 
-				var ds = this.$['sub-grid'].getGridDataSet();
-				var menu = ds.getRowObject(rows[0].dataIndex());
+        var ds = this.$['sub-grid'].getGridDataSet();
+        var menu = ds.getRowObject(rows[0].dataIndex());
 
-				var viewElement = document.createElement('things-layout-athena');
-				viewElement.id = 'detail-view';
-				viewElement.title = menu.name;
-				viewElement.resourceId = menu.id;
-				viewElement.resource = menu;
+        var viewElement = document.createElement('things-layout-athena');
+        viewElement.id = 'detail-view';
+        viewElement.title = menu.name;
+        viewElement.resourceId = menu.id;
+        viewElement.resource = menu;
 
-				var childElememts = [ {
-					viewSection: 'leftContent',
-					title : Things.DataGlobal.t('title.detail'),
-					elementName : 'things-base-menu-detail-main',
-					elementId:'detailMain',
-					attributes:[ {
-						name:'resource-id', value: menu.id
-					}, {
-						name : 'class', value : 'layout flex'
-					} ]
-				}, {
-					viewSection : 'rightTopContent',
-					title : Things.DataGlobal.t('title.setup_columns'),
-					elementName : 'things-base-menu-detail-columns',
-					elementId:'detailColumns',
-					class:'layout flex',
-					attributes:[ {
-						name : 'class', value : 'layout flex'
-					} ]
-				}, {
-					viewSection :'rightBottomContent',
-					title : Things.DataGlobal.t('title.setup_button'),
-					elementName : 'things-base-menu-detail-buttons',
-					elementId:'detailButtons',
-					attributes:[ {
-						name : 'class', value : 'layout flex'
-					} ]
-				} ];
+        var childElememts = [{
+          viewSection: 'leftContent',
+          title: Things.DataGlobal.t('title.detail'),
+          elementName: 'things-base-menu-detail-main',
+          elementId: 'detailMain',
+          attributes: [{
+            name: 'resource-id',
+            value: menu.id
+          }, {
+            name: 'class',
+            value: 'layout flex'
+          }]
+        }, {
+          viewSection: 'rightTopContent',
+          title: Things.DataGlobal.t('title.setup_columns'),
+          elementName: 'things-base-menu-detail-columns',
+          elementId: 'detailColumns',
+          class: 'layout flex',
+          attributes: [{
+            name: 'class',
+            value: 'layout flex'
+          }]
+        }, {
+          viewSection: 'rightBottomContent',
+          title: Things.DataGlobal.t('title.setup_button'),
+          elementName: 'things-base-menu-detail-buttons',
+          elementId: 'detailButtons',
+          attributes: [{
+            name: 'class',
+            value: 'layout flex'
+          }]
+        }];
 
-				viewElement.sections = childElememts;
-				viewElement.showDetailView(menu.id, menu);
-			},
+        viewElement.sections = childElememts;
+        viewElement.showDetailView(menu.id, menu);
+      },
 
-			/**
-			 * 서브 메뉴를 표시한다.
-			 *
-			 * @param {Event} event 그리드에서 선택된 event
-			 */
-			_showSubMenus: function(event) {
-				this.$['search-submenus'].selectFields = this.selectFields;
-				this.$['search-submenus'].resourceId = event.detail.id;
-				this._reloadSubMenus();
-			},
+      /**
+       * @description 서브 메뉴를 표시한다.
+       *************************
+       * @param {Event} event 그리드에서 선택된 event
+       */
+      _showSubMenus: function(event) {
+        this.$['search-submenus'].selectFields = this.selectFields;
+        this.$['search-submenus'].resourceId = event.detail.id;
+        this._reloadSubMenus();
+      },
 
-			/**
-		 	 * 메인 메뉴 그리드 리프레쉬
-			 *
-			 * @param {Event} event
-			 */
-			_reloadMainMenus: function(event) {
-				this.$['search-form'].submitMyForm();
-			},
+      /**
+       * @description 메인 메뉴 그리드 리프레쉬
+       *************************
+       * @param {Event} event
+       */
+      _reloadMainMenus: function(event) {
+        this.$['search-form'].submitMyForm();
+      },
 
-			/**
-			 * 서브 메뉴 그리드 리프레쉬
-			 *
-			 * @param {Event} event
-			 */
-			_reloadSubMenus: function(event) {
-				this.$['search-submenus'].generateRequest();
-			},
+      /**
+       * @description 서브 메뉴 그리드 리프레쉬
+       *************************
+       * @param {Event} event
+       */
+      _reloadSubMenus: function(event) {
+        this.$['search-submenus'].generateRequest();
+      },
 
-			/**
-			 * 서브 메뉴 저장 전에...
-			 *
-			 * @param {Event} event
-			 */
-			_beforeSubMenuSave: function(event) {
-				var subGrid = event.target;
-				var changedList = subGrid.writeData;
-				if(!changedList || changedList.length == 0) return event;
+      /**
+       * @description 서브 메뉴 저장 전에...
+       *************************
+       * @param {Event} event
+       */
+      _beforeSubMenuSave: function(event) {
+        var subGrid = event.target;
+        var changedList = subGrid.writeData;
+        if (!changedList || changedList.length == 0) return event;
 
-				var parentId = this.selectedRow.id;
-				changedList.forEach(function(changedData) {
-					if(changedData.cud_flag_ == 'c' && (!changedData.parent || !changedData.parent_id)) {
-						changedData.parent_id = parentId;
-						delete changedData['parent'];
-					}
-				});
+        var parentId = this.selectedRow.id;
+        changedList.forEach(function(changedData) {
+          if (changedData.cud_flag_ == 'c' && (!changedData.parent || !changedData.parent_id)) {
+            changedData.parent_id = parentId;
+            delete changedData['parent'];
+          }
+        });
 
-				return event;
-			},
+        return event;
+      },
 
-			/**
-			 * Add Main Menu
-			 *
-			 * @param {Object} event
-			 */
-			_addMainMenu: function(event) {
-				event.preventDefault();
-				var newData = this.$['grid'].newRowData();
-				newData['menu_type'] = 'MENU';
-				newData['category'] = 'STANDARD';
-				var dataSet = this.$['grid'].getGridDataSet();
-				dataSet.insertRow(0, newData);
-			},
+      /**
+       * @description 메인 메뉴 추가
+       *************************
+       * @param {Object} event
+       */
+      _addMainMenu: function(event) {
+        event.preventDefault();
+        var newData = this.$['grid'].newRowData();
+        newData['menu_type'] = 'MENU';
+        newData['category'] = 'STANDARD';
+        var dataSet = this.$['grid'].getGridDataSet();
+        dataSet.insertRow(0, newData);
+      },
 
-			/**
-			 * Add Sub Menu
-			 *
-			 * @param {Object} event
-			 */
-			_addSubMenu: function(event) {
-				if(!this.selectedRow) return;
+      /**
+       * @description 서브 메뉴 추가
+       *************************
+       * @param {Object} event
+       */
+      _addSubMenu: function(event) {
+        if (!this.selectedRow) return;
 
-				event.preventDefault();
-				var newData = this.$['sub-grid'].newRowData();
-				newData['parent'] = { id : this.selectedRow, name : this.selectedRow.name };
-				var dataSet = this.$['sub-grid'].getGridDataSet();
-				dataSet.insertRow(0, newData);
-			},
+        event.preventDefault();
+        var newData = this.$['sub-grid'].newRowData();
+        newData['parent'] = {
+          id: this.selectedRow,
+          name: this.selectedRow.name
+        };
+        var dataSet = this.$['sub-grid'].getGridDataSet();
+        dataSet.insertRow(0, newData);
+      },
 
-			/**
-			 * 그리드 셀 선택이 변경되었을 경우 파일 다운로드
-			 *********
-			 * @param {Object} e
-			 */
-			_exportExcel: function(e) {
-				e.preventDefault();
-				var baseUrl = this.get('globals.baseUrl');
-				var parentId = this.selectedRow ? this.selectedRow.id : 'all';
-				
-				this.openConfirmMsg({
-					type : 'info',
-					title : Things.DataGlobal.t('text.Want to download file'),
-					text : Things.DataGlobal.t('text.You can download file'),
-					showCancelButton: true
-				}, function() {
-					window.location = baseUrl + '/menus/' + parentId + '/export/';
-				});
-			}
-		});
-	</script>
+      /**
+       * @description 그리드 셀 선택이 변경되었을 경우 파일 다운로드
+       *************************
+       * @param {Object} e
+       */
+      _exportExcel: function(e) {
+        e.preventDefault();
+        var baseUrl = this.get('globals.baseUrl');
+        var parentId = this.selectedRow ? this.selectedRow.id : 'all';
+
+        this.openConfirmMsg({
+          type: 'info',
+          title: Things.DataGlobal.t('text.Want to download file'),
+          text: Things.DataGlobal.t('text.You can download file'),
+          showCancelButton: true
+        }, function() {
+          window.location = baseUrl + '/menus/' + parentId + '/export/';
+        });
+      }
+    });
+  </script>
 </dom-module>

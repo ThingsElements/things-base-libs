@@ -199,13 +199,19 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         gridColumns: {
           type: Array,
-          value: function () {
-            var colTypes = ['', 'binary', 'boolean', 'date', 'datetime', 'decimal', 'double', 'float', 'integer', 'long', 'string', 'text', 'time', 'timestamp'];
+          value: function() {
+            //var colTypes = ['', 'binary', 'boolean', 'date', 'datetime', 'decimal', 'double', 'float', 'integer', 'long', 'string', 'text', 'time', 'timestamp'];
 
             return [{
-              fieldName: 'id', name: 'id', width: 0
+              fieldName: 'id',
+              name: 'id',
+              width: 0
             }, {
-              fieldName: 'rank', name: 'rank', width: 50, type: 'number', nullable: false,
+              fieldName: 'rank',
+              name: 'rank',
+              width: 50,
+              type: 'number',
+              nullable: false,
               header: {
                 text: Things.DataGlobal.t('label.rank')
               },
@@ -213,7 +219,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'name', name: 'name', width: 120, nullable: false,
+              fieldName: 'name',
+              name: 'name',
+              width: 120,
+              nullable: false,
               header: {
                 text: Things.DataGlobal.t('label.name')
               },
@@ -221,7 +230,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 32
               }
             }, {
-              fieldName: 'description', name: 'description', width: 135,
+              fieldName: 'description',
+              name: 'description',
+              width: 135,
               header: {
                 text: Things.DataGlobal.t('label.description')
               },
@@ -229,34 +240,50 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 255
               }
             }, {
-              fieldName: 'term', name: 'term', width: 150,
+              fieldName: 'term',
+              name: 'term',
+              width: 150,
               header: {
                 text: Things.DataGlobal.t('label.term') + ' (from)'
               }
             }, {
-              fieldName: 'trans', name: 'trans', width: 125, editable: false,
-              valueType: 'text', type: 'calced',
+              fieldName: 'trans',
+              name: 'trans',
+              width: 125,
+              editable: false,
+              valueType: 'text',
+              type: 'calced',
               header: {
                 text: Things.DataGlobal.t('label.term') + ' (to)'
               },
-              valueCallback: function (column, row) {
+              valueCallback: function(column, row) {
                 var term = row.getValue('term');
                 return term ? Things.DataGlobal.t(term) : '';
               }
             }, {
-              name: 'col_type', fieldName: 'col_type', width: 75, nullable: false,
+              name: 'col_type',
+              fieldName: 'col_type',
+              width: 75,
+              nullable: false,
               lookupDisplay: true,
-              lookupValues: colTypes,
-              lookupLabels: colTypes,
+              //lookupValues: colTypes,
+              //lookupLabels: colTypes,
               header: {
                 text: Things.DataGlobal.t('label.col_type')
               },
               editor: {
                 type: 'list',
                 domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'ENTITY_FIELD_TYPE'
               }
             }, {
-              fieldName: 'col_size', name: 'col_size', width: 50, type: 'number',
+              fieldName: 'col_size',
+              name: 'col_size',
+              width: 50,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.size')
               },
@@ -264,7 +291,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              name: 'nullable', fieldName: 'nullable', width: 60, editable: false,
+              name: 'nullable',
+              fieldName: 'nullable',
+              width: 60,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.nullable')
               },
@@ -276,7 +306,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'uniq_rank', name: 'uniq_rank', width: 65, type: 'number',
+              fieldName: 'uniq_rank',
+              name: 'uniq_rank',
+              width: 65,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.uniq_rank')
               },
@@ -284,7 +317,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              name: 'virtual_field', fieldName: 'virtual_field', width: 60, editable: false,
+              name: 'virtual_field',
+              fieldName: 'virtual_field',
+              width: 60,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.virtual')
               },
@@ -296,7 +332,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'search_check', name: 'search_check', width: 100, editable: false,
+              fieldName: 'search_check',
+              name: 'search_check',
+              width: 100,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('title.search_condition')
               },
@@ -308,7 +347,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'grid_check', name: 'grid_check', width: 60, editable: false,
+              fieldName: 'grid_check',
+              name: 'grid_check',
+              width: 60,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.list')
               },
@@ -320,7 +362,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'sort_rank', name: 'sort_rank', width: 65, type: 'number',
+              fieldName: 'sort_rank',
+              name: 'sort_rank',
+              width: 65,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.sort_rank')
               },
@@ -328,7 +373,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'reverse_sort', name: 'reverse_sort', width: 80, editable: false,
+              fieldName: 'reverse_sort',
+              name: 'reverse_sort',
+              width: 80,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.reverse_sort')
               },
@@ -340,7 +388,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'ref_type', name: 'ref_type', width: 90,
+              fieldName: 'ref_type',
+              name: 'ref_type',
+              width: 90,
               lookupDisplay: true,
               lookupValues: ['', 'CommonCode', 'Entity', 'Menu', 'Url'],
               lookupLabels: ['', 'Code', 'Entity', 'Menu', 'Url'],
@@ -352,7 +402,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 domainOnly: true
               }
             }, {
-              fieldName: 'ref_name', name: 'ref_name', width: 150,
+              fieldName: 'ref_name',
+              name: 'ref_name',
+              width: 150,
               header: {
                 text: Things.DataGlobal.t('label.ref_name')
               },
@@ -360,7 +412,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 32
               }
             }, {
-              fieldName: 'ref_params', name: 'ref_params', width: 180,
+              fieldName: 'ref_params',
+              name: 'ref_params',
+              width: 180,
               header: {
                 text: Things.DataGlobal.t('label.ref_params')
               },
@@ -368,7 +422,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 128
               }
             }, {
-              fieldName: 'ref_related', name: 'ref_related', width: 180,
+              fieldName: 'ref_related',
+              name: 'ref_related',
+              width: 180,
               header: {
                 text: Things.DataGlobal.t('label.ref_related')
               },
@@ -376,7 +432,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 128
               }
             }, {
-              fieldName: 'range_val', name: 'range_val', width: 120,
+              fieldName: 'range_val',
+              name: 'range_val',
+              width: 120,
               header: {
                 text: Things.DataGlobal.t('label.range_val')
               },
@@ -384,7 +442,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 128
               }
             }, {
-              fieldName: 'default_val', name: 'default_val', width: 120,
+              fieldName: 'default_val',
+              name: 'default_val',
+              width: 120,
               header: {
                 text: Things.DataGlobal.t('label.default_val')
               },
@@ -392,7 +452,9 @@ Copyright © HatioLab Inc. All rights reserved.
                 maxLength: 128
               }
             }, {
-              fieldName: 'ignore_on_save', name: 'ignore_on_save', width: 0,
+              fieldName: 'ignore_on_save',
+              name: 'ignore_on_save',
+              width: 0,
               renderer: {
                 type: 'check',
                 editable: true,
@@ -401,17 +463,29 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              fieldName: 'search_editor', name: 'search_editor', width: 0
+              fieldName: 'search_editor',
+              name: 'search_editor',
+              width: 0
             }, {
-              fieldName: 'search_oper', name: 'search_oper', width: 0
+              fieldName: 'search_oper',
+              name: 'search_oper',
+              width: 0
             }, {
-              fieldName: 'grid_editor', name: 'grid_editor', width: 0
+              fieldName: 'grid_editor',
+              name: 'grid_editor',
+              width: 0
             }, {
-              fieldName: 'form_editor', name: 'form_editor', width: 0
+              fieldName: 'form_editor',
+              name: 'form_editor',
+              width: 0
             }, {
-              fieldName: 'grid_width', name: 'grid_width', width: 0
+              fieldName: 'grid_width',
+              name: 'grid_width',
+              width: 0
             }, {
-              fieldName: 'grid_align', name: 'grid_align', width: 0
+              fieldName: 'grid_align',
+              name: 'grid_align',
+              width: 0
             }];
           }
         },
@@ -446,7 +520,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e
        */
-      _myTabSelected: function (e) {
+      _myTabSelected: function(e) {
         this.setupButtons();
         this.$.grid.resizeGrid();
       },
@@ -457,7 +531,7 @@ Copyright © HatioLab Inc. All rights reserved.
        * @param {String} resourceId
        * @return {String} Save entity columns url
        */
-      _computeEntityColumnSaveUrl: function (resourceId) {
+      _computeEntityColumnSaveUrl: function(resourceId) {
         return 'entities/' + resourceId + '/update_multiple_entity_columns.json';
       },
 
@@ -466,7 +540,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} lastResponse
        */
-      _responseChanged: function (lastResponse) {
+      _responseChanged: function(lastResponse) {
         this.resourceColumns = lastResponse.items ? lastResponse.items : [];
       },
 
@@ -475,7 +549,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Array} resourceColumns
        */
-      _resourceColumnsChanged: function (resourceColumns) {
+      _resourceColumnsChanged: function(resourceColumns) {
         if (resourceColumns && resourceColumns.length > 0) {
           for (var i = 0; i < resourceColumns.length; i++) {
             var column = resourceColumns[i];
@@ -492,12 +566,12 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} event
        */
-      _setupWriteData: function (event) {
+      _setupWriteData: function(event) {
         var writeData = event.detail;
         if (writeData && writeData.length > 0) {
           var entityId = this.resourceId;
 
-          writeData.forEach(function (changedData) {
+          writeData.forEach(function(changedData) {
             changedData.entity_id = entityId;
             if (!changedData.uniq_rank) changedData.uniq_rank = 0;
 
@@ -528,7 +602,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 트랜잭션 성공 이벤트
        */
-      _responseTransaction: function (e) {
+      _responseTransaction: function(e) {
         this.lastResponse = e.detail;
       },
 
@@ -537,7 +611,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      syncWithTable: function (e) {
+      syncWithTable: function(e) {
         var syncSvc = this.$['sync-service'];
         syncSvc.resourceUrl = 'entities/' + this.resourceId + '/create_entity_columns';
         syncSvc.generateRequest();
@@ -548,7 +622,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      checkColumns: function (e) {
+      checkColumns: function(e) {
         var dataSet = this.$.grid.getGridDataSet();
         var dataCount = dataSet._values.length;
 
@@ -627,7 +701,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} row
        */
-      _setGridEditor: function (row) {
+      _setGridEditor: function(row) {
         if (row.ref_type && row.ref_name) {
           if (!row.grid_width) row.grid_width = 150;
           row.grid_editor = (row.ref_type == 'CommonCode') ? 'code-combo' : 'resource-selector';
@@ -652,7 +726,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} row
        */
-      _setFormEditor: function (row) {
+      _setFormEditor: function(row) {
         if (row.name == 'id') {
           row.form_editor = 'hidden';
         } else if (row.ref_type && row.ref_name) {
@@ -674,7 +748,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} row
        */
-      _setSearchEditor: function (row) {
+      _setSearchEditor: function(row) {
         if (row.ref_type && row.ref_name) {
           row.search_editor = (row.ref_type == 'CommonCode') ? 'code-combo' : 'resource-selector';
 
@@ -698,7 +772,7 @@ Copyright © HatioLab Inc. All rights reserved.
        * @param {Object} dataSet
        * @param {String} fieldName
        */
-      _isExistRow: function (dataSet, fieldName) {
+      _isExistRow: function(dataSet, fieldName) {
         var count = dataSet._values.length;
         for (var i = 0; i < count; i++) {
           var row = dataSet.getRowObject(i);
@@ -723,7 +797,7 @@ Copyright © HatioLab Inc. All rights reserved.
        * @param {Boolean} ignoreOnSave
        * @param {Boolean} gridCheck
        */
-      _newDefaultRow: function (name, term, colType, refType, refName, nullable, rank, ignoreOnSave, gridCheck) {
+      _newDefaultRow: function(name, term, colType, refType, refName, nullable, rank, ignoreOnSave, gridCheck) {
         return {
           entity_id: this.resourceId,
           rank: rank ? rank : 0,
@@ -743,7 +817,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e
        */
-      _addRow: function (e) {
+      _addRow: function(e) {
         e.preventDefault();
         var dataSet = this.$.grid.dataSet;
         var count = dataSet.rowCount() + 1;
@@ -755,7 +829,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} things-grid-resource-column-edit 이벤트
        */
-      _onGridColumnRefEdit: function (e) {
+      _onGridColumnRefEdit: function(e) {
         e.preventDefault();
         var index = e.detail.index;
         var grid = index._grid;
@@ -787,9 +861,9 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      generateTable: function (e) {
+      generateTable: function(e) {
         if (this.resource.table_name) {
-          this._confirmAndInvoke(function () {
+          this._confirmAndInvoke(function() {
             var service = this.$['generate-service'];
             service.resourceUrl = 'code_generator/code/table/' + this.resourceId;
             service.generateRequest();
@@ -805,9 +879,9 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      generateEntity: function (e) {
+      generateEntity: function(e) {
         if (this.resource.table_name) {
-          this._confirmAndInvoke(function () {
+          this._confirmAndInvoke(function() {
             var service = this.$['generate-service'];
             service.resourceUrl = 'code_generator/code/entity/' + this.resourceId;
             service.generateRequest();
@@ -823,9 +897,9 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      generateService: function (e) {
+      generateService: function(e) {
         if (this.resource.table_name) {
-          this._confirmAndInvoke(function () {
+          this._confirmAndInvoke(function() {
             var service = this.$['generate-service'];
             service.resourceUrl = 'code_generator/code/controller/' + this.resourceId;
             service.generateRequest();
@@ -841,7 +915,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {String} func
        */
-      _confirmAndInvoke: function (func) {
+      _confirmAndInvoke: function(func) {
         this.openConfirmMsg({
           type: 'info',
           title: Things.DataGlobal.t('text.Sure to Generate'),
@@ -853,9 +927,11 @@ Copyright © HatioLab Inc. All rights reserved.
       /**
        * 서비스 호출 준비가 안 된 상태라는 메시지 출력
        */
-      _warningNotReady: function () {
+      _warningNotReady: function() {
         var tableName = Things.DataGlobal.t('label.table_name');
-        var msg = Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', { value: tableName });
+        var msg = Things.DataGlobal.t('error.SHOULD_NOT_BE_EMPTY', {
+          value: tableName
+        });
 
         this.openInfoMsg({
           type: 'warning',
@@ -870,7 +946,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e
        */
-      _generationSuccess: function (e) {
+      _generationSuccess: function(e) {
         this.openInfoMsg({
           title: Things.DataGlobal.t('label.success'),
           type: 'info',
@@ -884,7 +960,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e 버튼 클릭 이벤트
        */
-      createMenu: function (e) {
+      createMenu: function(e) {
         this.$['dialog'].open();
       },
 
@@ -893,7 +969,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {Object} e
        */
-      _parentMenuSelected: function (e) {
+      _parentMenuSelected: function(e) {
         var parentMenuId = e.detail.value;
         if (parentMenuId) {
           this.generateMenu(parentMenuId);
@@ -905,7 +981,7 @@ Copyright © HatioLab Inc. All rights reserved.
        *
        * @param {String} parentMenuId
        */
-      generateMenu: function (parentMenuId) {
+      generateMenu: function(parentMenuId) {
         var menu = {
           parent_id: parentMenuId,
           name: this.resource.name,
@@ -939,35 +1015,44 @@ Copyright © HatioLab Inc. All rights reserved.
       /**
        * 전달받은 isDetail를 통해 master/slave 여부를 확인한 뒤 버튼을 초기화 합니다.
        */
-      setupButtons: function () {
+      setupButtons: function() {
         if (this.buttons && this.buttons.length > 1) return;
 
         var buttons = [{
-          id: 'sync-btn',
-          text: 'sync'
-        }, {
-          id: 'check-columns-btn',
-          text: 'check-columns'
-        }, {
-          id: 'add-btn',
-          text: 'add'
-        }, {
-          id: 'save-btn',
-          text: 'save'
-        }, {
-          id: 'delete-btn',
-          text: 'delete'
-        }, /*{
-          id: 'generate-table-btn',
-          text: 'generate_table'
-        }, */{
-          id: 'generate-entity-btn',
-          text: 'generate_entity'
-        }];
+            id: 'sync-btn',
+            text: 'sync'
+          }, {
+            id: 'check-columns-btn',
+            text: 'check-columns'
+          }, {
+            id: 'add-btn',
+            text: 'add'
+          }, {
+            id: 'save-btn',
+            text: 'save'
+          }, {
+            id: 'delete-btn',
+            text: 'delete'
+          },
+          /*{
+                   id: 'generate-table-btn',
+                   text: 'generate_table'
+                 }, */
+          {
+            id: 'generate-entity-btn',
+            text: 'generate_entity'
+          }
+        ];
 
         if (!this.resource.master || !this.resource.master.name) {
-          buttons.push({ id: 'generate-svc-btn', text: 'generate_service' });
-          buttons.push({ id: 'create-menu-btn', text: 'create_menu' });
+          buttons.push({
+            id: 'generate-svc-btn',
+            text: 'generate_service'
+          });
+          buttons.push({
+            id: 'create-menu-btn',
+            text: 'create_menu'
+          });
         }
 
         this.buttons = buttons;

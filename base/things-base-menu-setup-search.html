@@ -86,7 +86,7 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         gridModel: {
           type: Array,
-          value: [ {
+          value: [{
             fieldName: 'id'
           }, {
             fieldName: 'menu_id'
@@ -114,7 +114,7 @@ Copyright © HatioLab Inc. All rights reserved.
             fieldName: 'search_oper'
           }, {
             fieldName: 'search_init_val'
-          } ]
+          }]
         },
 
         /**
@@ -123,11 +123,7 @@ Copyright © HatioLab Inc. All rights reserved.
         gridColumns: {
           type: Array,
           value: function() {
-            // var validators = document.querySelector('#validators').allValidators();
-            var colTypes = [
-              '', 'binary', 'boolean', 'date', 'datetime','decimal','double',
-              'float', 'integer', 'long', 'string', 'text', 'time', 'timestamp'
-            ];
+            /* var validators = document.querySelector('#validators').allValidators();
             var editors = [
               '', 'hidden', 'readonly', 'checkbox', 'text', 'code-combo', 'resource-combo', 'number',
               'textarea', 'resource-field', 'resource-selector', 'resource-format-selector', 'resource-code', 'reference-query', 'date-picker',
@@ -136,14 +132,21 @@ Copyright © HatioLab Inc. All rights reserved.
             var opers = [
               '', 'contains', 'dnew', 'dnsw', 'eq', 'ew', 'gt', 'gte', 'between', 'in',
               'is_blank', 'is_false', 'is_not_false', 'is_not_null', 'is_not_true', 'is_null',
-              'is_present', 'is_true', 'like', 'lt', 'lte', 'nlike', 'noteq', 'notin', 'sw' ];
+              'is_present', 'is_true', 'like', 'lt', 'lte', 'nlike', 'noteq', 'notin', 'sw' ];*/
 
-            return [ {
-              fieldName: 'id', name: 'id', width: 0
+            return [{
+              fieldName: 'id',
+              name: 'id',
+              width: 0
             }, {
-              fieldName: 'menu_id', name: 'menu_id', width: 0
+              fieldName: 'menu_id',
+              name: 'menu_id',
+              width: 0
             }, {
-              fieldName: 'search_rank', name: 'search_rank', width: 50, type: 'number',
+              fieldName: 'search_rank',
+              name: 'search_rank',
+              width: 50,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.rank')
               },
@@ -151,13 +154,20 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'name', name: 'name', width: 135, editable: false,
+              fieldName: 'name',
+              name: 'name',
+              width: 135,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.name')
               }
             }, {
-              fieldName: 'term', name: 'term', width: 150, editable: false,
-              valueType: 'text', type: 'calced',
+              fieldName: 'term',
+              name: 'term',
+              width: 150,
+              editable: false,
+              valueType: 'text',
+              type: 'calced',
               header: {
                 text: Things.DataGlobal.t('label.term')
               },
@@ -166,22 +176,34 @@ Copyright © HatioLab Inc. All rights reserved.
                 return term ? Things.DataGlobal.t(term) : '';
               }
             }, {
-              fieldName: 'ref_type', name: 'ref_type', width: 100, editable: false,
+              fieldName: 'ref_type',
+              name: 'ref_type',
+              width: 100,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_type')
               }
             }, {
-              fieldName: 'ref_name', name: 'ref_name', width: 150, editable: false,
+              fieldName: 'ref_name',
+              name: 'ref_name',
+              width: 150,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_name')
-             }
+              }
             }, {
-              name: 'col_type', fieldName: 'col_type', width: 80, editable: false,
+              name: 'col_type',
+              fieldName: 'col_type',
+              width: 80,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.col_type')
               }
             }, {
-              fieldName: 'sort_rank', name: 'sort_rank', width: 75, type: 'number',
+              fieldName: 'sort_rank',
+              name: 'sort_rank',
+              width: 75,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.sort_rank')
               },
@@ -189,7 +211,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'reverse_sort', name: 'reverse_sort', width: 80, editable: false,
+              fieldName: 'reverse_sort',
+              name: 'reverse_sort',
+              width: 80,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.reverse_sort')
               },
@@ -201,43 +226,59 @@ Copyright © HatioLab Inc. All rights reserved.
                 falseValues: 'false'
               }
             }, {
-              name: 'search_editor', fieldName: 'search_editor', width: 150,
+              name: 'search_editor',
+              fieldName: 'search_editor',
+              width: 150,
               lookupDisplay: true,
-              lookupValues: editors,
-              lookupLabels: editors,
+              //lookupValues: editors,
+              //lookupLabels: editors,
               header: {
                 text: Things.DataGlobal.t('label.editor')
               },
               editor: {
                 type: 'list',
                 domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'SEARCH_EDITORS'
               }
             }, {
-              name: 'search_name', fieldName: 'search_name', width: 90,
+              name: 'search_name',
+              fieldName: 'search_name',
+              width: 90,
               header: {
                 text: Things.DataGlobal.t('label.search_name')
               }
             }, {
-              fieldName: 'search_oper', name: 'search_oper', width: 90,
+              fieldName: 'search_oper',
+              name: 'search_oper',
+              width: 90,
               lookupDisplay: true,
-              lookupValues: opers,
-              lookupLabels: opers,
+              //lookupValues: opers,
+              //lookupLabels: opers,
               header: {
                 text: Things.DataGlobal.t('label.search_oper')
               },
               editor: {
                 type: 'list',
                 domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'QUERY_OPERATOR'
               }
             }, {
-              fieldName: 'search_init_val', name: 'search_init_val', width: 90,
+              fieldName: 'search_init_val',
+              name: 'search_init_val',
+              width: 90,
               header: {
                 text: Things.DataGlobal.t('label.search_init_val')
               },
               editor: {
                 maxLength: 255
               }
-            } ];
+            }];
           }
         },
 
@@ -254,18 +295,18 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         buttons: {
           type: Array,
-          value: [ {
+          value: [{
             id: 'save-btn',
             text: 'save',
             icon: 'icons:save'
-          } ]
+          }]
         }
       },
 
       listeners: {
-        'things-detail-view-selected' : '_detailTabSelected',
-        'grid.things-grid-handle-save' : '_beforeSearchColumnSave',
-        'grid.things-grid-save-success' : '_reloadGrid',
+        'things-detail-view-selected': '_detailTabSelected',
+        'grid.things-grid-handle-save': '_beforeSearchColumnSave',
+        'grid.things-grid-save-success': '_reloadGrid',
         'column-ajax.things-ajax-response': '_afterColumnsLoaded'
       },
 
@@ -282,13 +323,13 @@ Copyright © HatioLab Inc. All rights reserved.
        * @param {Object} menuMeta
        */
       _onMenuMetaChanged: function(menuMeta) {
-        if(!menuMeta || !menuMeta.columns || menuMeta.columns.length == 0) {
+        if (!menuMeta || !menuMeta.columns || menuMeta.columns.length == 0) {
           this.items = [];
         } else {
           var items = menuMeta.columns.filter(function(column) {
             return (column.search_rank && column.search_rank > 0) || (column.sort_rank && column.sort_rank > 0);
           });
-          if(items && items.length > 0) this._sortColumns(items, 'search_rank')
+          if (items && items.length > 0) this._sortColumns(items, 'search_rank')
           this.items = items;
         }
       },
@@ -319,11 +360,11 @@ Copyright © HatioLab Inc. All rights reserved.
        */
       _beforeSearchColumnSave: function(event) {
         var grid = event.target;
-        if(grid.writeData && grid.writeData.length > 0) {
+        if (grid.writeData && grid.writeData.length > 0) {
           var resourceId = this.resourceId;
           grid.writeData.forEach(function(changedData) {
             delete changedData['term'];
-            if(changedData.cud_flag_ == 'c') {
+            if (changedData.cud_flag_ == 'c') {
               changedData.menu_id = resourceId;
             }
           });

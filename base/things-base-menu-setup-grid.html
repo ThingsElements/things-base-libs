@@ -88,7 +88,7 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         gridModel: {
           type: Array,
-          value: [ {
+          value: [{
             fieldName: 'id'
           }, {
             fieldName: 'menu_id'
@@ -114,7 +114,7 @@ Copyright © HatioLab Inc. All rights reserved.
             fieldName: 'grid_format'
           }, {
             fieldName: 'def_val'
-          } ]
+          }]
         },
 
         /**
@@ -123,15 +123,18 @@ Copyright © HatioLab Inc. All rights reserved.
         gridColumns: {
           type: Array,
           value: function() {
-            var colTypes = ['', 'binary', 'boolean', 'date', 'datetime', 'decimal', 'double', 'float', 'integer', 'long', 'string', 'text', 'time', 'timestamp'];
-            var editors = ['', 'hidden', 'readonly', 'checkbox', 'text', 'code-combo', 'code-column', 'number', 'textarea', 'resource-column', 'resource-selector', 'resource-format-selector', 'resource-code', 'image-selector', 'file-selector', 'image-renderer', 'date-picker', 'datetime-picker', 'date', 'time', 'datetime', 'positive-number', 'negative-number', 'ranged-date-picker', 'rank', 'password', 'popup-editor'];
-
-            return [ {
-              fieldName: 'id', name: 'id', width: 0
+            return [{
+              fieldName: 'id',
+              name: 'id',
+              width: 0
             }, {
-              fieldName: 'menu_id', name: 'menu_id', width: 0
+              fieldName: 'menu_id',
+              name: 'menu_id',
+              width: 0
             }, {
-              fieldName: 'grid_rank', name: 'grid_rank', width: 50,
+              fieldName: 'grid_rank',
+              name: 'grid_rank',
+              width: 50,
               header: {
                 text: Things.DataGlobal.t('label.rank')
               },
@@ -139,13 +142,20 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              fieldName: 'name', name: 'name', width: 135, editable: false,
+              fieldName: 'name',
+              name: 'name',
+              width: 135,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.name')
               }
             }, {
-              fieldName: 'term', name: 'term', width: 150, editable: false,
-              valueType: 'text', type: 'calced',
+              fieldName: 'term',
+              name: 'term',
+              width: 150,
+              editable: false,
+              valueType: 'text',
+              type: 'calced',
               header: {
                 text: Things.DataGlobal.t('label.term')
               },
@@ -154,25 +164,36 @@ Copyright © HatioLab Inc. All rights reserved.
                 return term ? Things.DataGlobal.t(term) : '';
               }
             }, {
-              name: 'col_type', fieldName: 'col_type', width: 80, editable: false,
+              name: 'col_type',
+              fieldName: 'col_type',
+              width: 80,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.col_type')
               }
             }, {
-              fieldName: 'ref_type', name: 'ref_type', width: 100, editable: false,
+              fieldName: 'ref_type',
+              name: 'ref_type',
+              width: 100,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_type')
               }
             }, {
-              fieldName: 'ref_name', name: 'ref_name', width: 150, editable: false,
+              fieldName: 'ref_name',
+              name: 'ref_name',
+              width: 150,
+              editable: false,
               header: {
                 text: Things.DataGlobal.t('label.ref_name')
-             }
+              }
             }, {
-              name: 'grid_align', fieldName: 'grid_align', width: 60,
+              name: 'grid_align',
+              fieldName: 'grid_align',
+              width: 60,
               lookupDisplay: true,
-              lookupValues: [ '', 'center', 'far' ],
-              lookupLabels: [ '', 'Center', 'Far' ],
+              lookupValues: ['', 'center', 'far'],
+              lookupLabels: ['', 'Center', 'Right'],
               header: {
                 text: Things.DataGlobal.t('label.align')
               },
@@ -181,7 +202,10 @@ Copyright © HatioLab Inc. All rights reserved.
                 domainOnly: true
               }
             }, {
-              fieldName: 'grid_width', name: 'grid_width', width: 60, type: 'number',
+              fieldName: 'grid_width',
+              name: 'grid_width',
+              width: 60,
+              type: 'number',
               header: {
                 text: Things.DataGlobal.t('label.width')
               },
@@ -189,34 +213,42 @@ Copyright © HatioLab Inc. All rights reserved.
                 textAlignment: 'center'
               }
             }, {
-              name: 'grid_editor', fieldName: 'grid_editor', width: 150,
+              name: 'grid_editor',
+              fieldName: 'grid_editor',
+              width: 150,
               lookupDisplay: true,
-              lookupValues: editors,
-              lookupLabels: editors,
               header: {
                 text: Things.DataGlobal.t('label.editor')
               },
               editor: {
                 type: 'list',
                 domainOnly: true
+              },
+              userData: {
+                resourceType: 'code',
+                resourceName: 'GRID_COLUMN_EDITOR'
               }
             }, {
-              fieldName: 'grid_format', name: 'grid_format', width: 135,
+              fieldName: 'grid_format',
+              name: 'grid_format',
+              width: 135,
               header: {
                 text: Things.DataGlobal.t('label.format')
               },
               editor: {
-                maxLength : 128
+                maxLength: 128
               }
             }, {
-              fieldName: 'def_val', name: 'def_val', width: 100,
+              fieldName: 'def_val',
+              name: 'def_val',
+              width: 100,
               header: {
                 text: Things.DataGlobal.t('label.def_val')
               },
               editor: {
                 maxLength: 255
               }
-            } ]
+            }]
           }
         },
 
@@ -233,18 +265,18 @@ Copyright © HatioLab Inc. All rights reserved.
          */
         buttons: {
           type: Array,
-          value: [ {
+          value: [{
             id: 'save-btn',
             text: 'save',
             icon: 'icons:save'
-          } ]
+          }]
         }
       },
 
       listeners: {
-        'things-detail-view-selected' : '_detailTabSelected',
-        'grid.things-grid-handle-save' : '_beforeSearchColumnSave',
-        'grid.things-grid-save-success' : '_reloadGrid',
+        'things-detail-view-selected': '_detailTabSelected',
+        'grid.things-grid-handle-save': '_beforeSearchColumnSave',
+        'grid.things-grid-save-success': '_reloadGrid',
         'column-ajax.things-ajax-response': '_afterColumnsLoaded'
       },
 
@@ -261,14 +293,14 @@ Copyright © HatioLab Inc. All rights reserved.
        * @param {Object} menuMeta
        */
       _onMenuMetaChanged: function(menuMeta) {
-        if(!menuMeta || !menuMeta.columns || menuMeta.columns.length == 0) {
+        if (!menuMeta || !menuMeta.columns || menuMeta.columns.length == 0) {
           this.items = [];
         } else {
           var items = menuMeta.columns.filter(function(column) {
             return column.grid_rank && column.grid_rank > 0;
           });
 
-          if(items && items.length > 0) this._sortColumns(items, 'grid_rank')
+          if (items && items.length > 0) this._sortColumns(items, 'grid_rank')
           this.items = items;
         }
       },
@@ -300,11 +332,11 @@ Copyright © HatioLab Inc. All rights reserved.
       _beforeSearchColumnSave: function(event) {
         var grid = event.target;
 
-        if(grid.writeData && grid.writeData.length > 0) {
+        if (grid.writeData && grid.writeData.length > 0) {
           var resourceId = this.resourceId;
           grid.writeData.forEach(function(changedData) {
             delete changedData['term'];
-            if(changedData.cud_flag_ == 'c') {
+            if (changedData.cud_flag_ == 'c') {
               changedData.menu_id = resourceId;
             }
           });
